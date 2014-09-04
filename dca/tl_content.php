@@ -27,7 +27,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_csv'] = array
 	'exclude'       => true,
 	'search'        => true,
 	'inputType'     => 'textarea',
-	'eval'          => array('allowHtml'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|html','helpwizard'=>true),
+	'eval'          => array('allowHtml'=>true, 'class'=>'monospace', 'rows'=>20),
 	'sql'           => "text NULL",
 );
 
