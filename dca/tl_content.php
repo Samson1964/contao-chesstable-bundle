@@ -27,7 +27,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_csv'] = array
 	'exclude'       => true,
 	'search'        => true,
 	'inputType'     => 'textarea',
-	'eval'          => array('allowHtml'=>true, 'class'=>'monospace', 'rows'=>20),
+	'eval'          => array('allowHtml'=>true, 'class'=>'monospace', 'rows'=>30, 'rte'=>'ace'),
 	'sql'           => "text NULL",
 );
 
@@ -43,24 +43,24 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_aufsteiger'] = array
 (
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['chesstable_aufsteiger'],
 	'inputType'     => 'text',
-	'eval'          => array('tl_class' => 'w50'),
-	'sql'           => "varchar(255) NOT NULL default ''",
+	'eval'          => array('tl_class'=> 'w50', 'maxlength'=>32),
+	'sql'           => "varchar(32) NOT NULL default ''",
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_absteiger'] = array
 (
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['chesstable_absteiger'],
 	'inputType'     => 'text',
-	'eval'          => array('tl_class' => 'w50'),
-	'sql'           => "varchar(255) NOT NULL default ''",
+	'eval'          => array('tl_class'=> 'w50', 'maxlength'=>32),
+	'sql'           => "varchar(32) NOT NULL default ''",
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_markieren'] = array
 (
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['chesstable_markieren'],
 	'inputType'     => 'text',
-	'eval'          => array('tl_class' => 'w50'),
-	'sql'           => "varchar(255) NOT NULL default ''",
+	'eval'          => array('tl_class'=> 'w50', 'maxlength'=>32),
+	'sql'           => "varchar(32) NOT NULL default ''",
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_namendrehen'] = array
@@ -99,8 +99,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_linktext'] = array
 (
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['chesstable_linktext'],
 	'inputType'     => 'text',
-	'eval'          => array('tl_class' => 'clr'),
-	'sql'           => "varchar(255) NOT NULL default ''",
+	'eval'          => array('tl_class'=> 'clr', 'maxlength'=>32),
+	'sql'           => "varchar(32) NOT NULL default ''",
 );
 
 class tl_chesstable extends Backend
