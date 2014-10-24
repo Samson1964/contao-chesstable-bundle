@@ -129,14 +129,14 @@ class chesstable extends \ContentElement
 						$flaggenurl = "system/modules/chesstable/assets/images/flags/".strtolower($wert).".jpg";
 						$flaggendatei = $_SERVER["DOCUMENT_ROOT"]."/".$flaggenurl;
 						if(file_exists($flaggendatei))
-							$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse ".strtolower($wert)." \"><img src=\"".$flaggenurl."\" width=\"23\" height=\"15\" /></$td>\n";
+							$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse\"><img src=\"".$flaggenurl."\" width=\"23\" height=\"15\" /></$td>\n";
 						else
 							$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse ".strtolower($wert)." \">".$wert."</$td>\n"; // Nationenname als title und class einfügen
 					}
 					else
 					{
 						// Länderkürzel oder Flagge mit CSS
-						$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse ".strtolower($wert)." \">".$wert."</$td>\n"; // Nationenname als title und class einfügen
+						$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse ".strtolower($wert)."\">".$wert."</$td>\n"; // Nationenname als title und class einfügen
 					}
 				}
 				else if($td == "th" && $klasse == "color") // wenn Spaltenkopf 'farbe'
