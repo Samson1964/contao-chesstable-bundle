@@ -1,7 +1,3 @@
-<pre>
-<?php //$this->showTemplateVars(); ?>
-</pre>
-
 <?php
 	$GLOBALS['TL_CSS'][] = 'system/modules/chesstable/assets/default.css';
 	$GLOBALS['TL_JQUERY'][] = '<script type="text/javascript" src="system/modules/chesstable/assets/lightbox.js"></script>';
@@ -17,6 +13,9 @@
 					<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
 				<?php endif; ?>
 				<?php echo $this->tabelle; ?>
+				<?php if ($this->datum): ?>
+					<p class="update">Aktualisiert am <?php echo date("d.m.Y H:i", $this->datum); ?> Uhr</p>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>

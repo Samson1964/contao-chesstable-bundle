@@ -15,7 +15,7 @@
  * Palettes
  */
 $GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'chesstable_lightbox';
-$GLOBALS['TL_DCA']['tl_content']['palettes']['chesstable'] = '{type_legend},type,headline;{chesstable_legend_csv},chesstable_csv;{chesstable_legend_aufab},chesstable_aufsteiger,chesstable_absteiger,chesstable_markieren;{chesstable_legend_lightbox},chesstable_lightbox;{chesstable_legend_optionen},chesstable_namendrehen,chesstable_flaggen;{protected_legend:hide},protected;{expert_legend:hide},guest,cssID,space;{invisible_legend:hide},invisible,start,stop';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['chesstable'] = '{type_legend},type,headline;{chesstable_legend_csv},chesstable_csv;{chesstable_legend_aufab},chesstable_aufsteiger,chesstable_absteiger,chesstable_markieren;{chesstable_legend_lightbox},chesstable_lightbox;{chesstable_legend_optionen},chesstable_namendrehen,chesstable_flaggen,chesstable_date;{protected_legend:hide},protected;{expert_legend:hide},guest,cssID,space;{invisible_legend:hide},invisible,start,stop';
 $GLOBALS['TL_DCA']['tl_content']['subpalettes']['chesstable_lightbox'] = 'chesstable_linktext,chesstable_hinweis';
 
 /**
@@ -28,7 +28,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_csv'] = array
 	'search'        => true,
 	'inputType'     => 'textarea',
 	'eval'          => array('allowHtml'=>true, 'class'=>'monospace', 'rows'=>30, 'rte'=>'ace'),
-	'sql'           => "text NULL",
+	'sql'           => "mediumtext NULL",
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_file'] = array
@@ -59,8 +59,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_markieren'] = array
 (
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['chesstable_markieren'],
 	'inputType'     => 'text',
-	'eval'          => array('tl_class'=> 'w50', 'maxlength'=>32),
-	'sql'           => "varchar(32) NOT NULL default ''",
+	'eval'          => array('tl_class'=> 'w50', 'maxlength'=>255),
+	'sql'           => "varchar(255) NOT NULL default ''",
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_namendrehen'] = array
@@ -74,6 +74,14 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_namendrehen'] = array
 $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_flaggen'] = array
 (
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['chesstable_flaggen'],
+	'inputType'     => 'checkbox',
+	'eval'          => array('tl_class' => 'w50','isBoolean' => true),
+	'sql'           => "char(1) NOT NULL default ''",
+);
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_date'] = array
+(
+	'label'         => &$GLOBALS['TL_LANG']['tl_content']['chesstable_date'],
 	'inputType'     => 'checkbox',
 	'eval'          => array('tl_class' => 'w50','isBoolean' => true),
 	'sql'           => "char(1) NOT NULL default ''",

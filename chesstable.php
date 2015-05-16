@@ -42,6 +42,10 @@ class chesstable extends \ContentElement
 		$lightbox = $this->chesstable_lightbox;
 		$linktext = $this->chesstable_linktext;
 		$flagge = $this->chesstable_flaggen;
+		
+		// Aktualisierungsdatum
+		($this->chesstable_date) ? $aktdatum = $this->tstamp : $aktdatum = 0;
+		
 		if(!$linktext) $linktext = "Alternativtabelle";
 
 		// Konfiguration der Tabellenköpfe einlesen (als Kleinschreibung)
@@ -71,7 +75,7 @@ class chesstable extends \ContentElement
 			{
 				// Getrimmten Wert in Tabelle eintragen
 				$tabelle[$x][$y] = trim($spalte[$y]);
-				// Spaltenart feststellen, wenn oberste Zeile
+				// Wenn oberste Zeile, dann Spaltenart feststellen
 				if($x == 0)
 				{
 					$spaltenart[$y+1] = 0; // Standardkopf
@@ -90,11 +94,16 @@ class chesstable extends \ContentElement
 			}
 		}
 
+		//echo "<pre>";
+		//print_r($tabelle);
+		//echo "<pre>";
+		
 		// Tabelle generieren
 		$content = "<table class=\"chesstable\">\n";
+		// Zuerst Zeilen durchlaufen
 		for($x=0;$x<count($tabelle);$x++)
 		{
-			$ze = $x+1; // Zeilennummer ab 1 statt 0
+			$ze = $x + 1; // Zeilennummer ab 1 statt 0
 
 			// Wenn Steuerspalte den Wert "team" enthält, dann CSS-Klasse in Zeile eintragen
 			($steuerspalte && $tabelle[$x][$steuerspalte-1] == "team") ? $trcss = "row$ze team" : $trcss = "row$ze";
@@ -104,13 +113,40 @@ class chesstable extends \ContentElement
 			if(in_array($ze, $absteiger)) $trcss .= " down";
 			if(in_array($ze, $markieren)) $trcss .= " high";
 
+			// Ist ein Befehl in Spalte 1?
+			if($tabelle[$x][0] == '~')
+			{
+				// Leerzeile erzeugen und nächste Zeile als Kopfzeile (th) formatieren
+				$content .= "<tr class=\"leerzeile\">\n";
+				$content .= "  <td colspan=\"" . $spaltenzahl . "\"></td>\n";
+				$content .= "</tr>\n";   
+				$kopfzeile = true;
+				continue;
+			}
+			elseif($tabelle[$x][0] == '[TEXT]')
+			{
+				// Textzeile erzeugen
+				$content .= "<tr class=\"textzeile\">\n";
+				$content .= "  <td colspan=\"" . $spaltenzahl . "\">" . $tabelle[$x][1] . "</td>\n";
+				$content .= "</tr>\n";   
+				continue;
+			}
+			
 			$content .= "<tr class=\"$trcss\">\n";
 
+			// Jetzt Spalten durchlaufen
 			for($y=0;$y<count($tabelle[$x]);$y++)
 			{
 				$sp = $y+1; // Spaltennummer ab 1 statt 0
 				$wert = $tabelle[$x][$y]; // Wert aus Tabelle zuweisen
-				if($ze == 1) $td = "th"; else $td = "td"; // th statt td in Zeile 1
+				
+				// Zeilenart td oder th einstellen
+				if($ze == 1 || $kopfzeile) 
+				{
+					$td = "th";
+				}
+				else $td = "td"; // th statt td in Zeile 1
+				
 				$klasse = $klassen[$spaltenart[$sp]]; // CSS-Klasse für Spaltenart
 				// Name drehen, wenn gefordert
 				if($namendrehen && $klasse == "name" && $ze > 1)
@@ -152,6 +188,9 @@ class chesstable extends \ContentElement
 					$content .= "<$td class=\"row$ze col$sp $klasse\">".$wert."</$td>\n";
 			}
 			$content .= "</tr>\n";
+			$kopfzeile = false; 
+			$spaltenzahl = count($tabelle[$x]); // Anzahl der Spalten für nächsten Schleifenlauf merken
+
 		}
 		$content .= "</table>\n";
 
@@ -164,6 +203,7 @@ class chesstable extends \ContentElement
 			$this->Template->linktext = $linktext;
 			$this->Template->class = "ce_chesstable";
 			$this->Template->tabelle = $content;
+			$this->Template->datum = $aktdatum;
 		}
 		else
 		{
@@ -171,6 +211,7 @@ class chesstable extends \ContentElement
 			$this->Template = new \FrontendTemplate($this->strTemplate);
 			$this->Template->class = "ce_chesstable";
 			$this->Template->tabelle = $content;
+			$this->Template->datum = $aktdatum;
 		}
 
 		return;

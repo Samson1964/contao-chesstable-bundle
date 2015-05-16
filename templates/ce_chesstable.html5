@@ -16,4 +16,8 @@
 		<?php echo $this->tabelle; ?>
 	</div>
 
+	<?php if ($this->datum): ?>
+		<p class="update">Aktualisiert am <?php echo date("d.m.Y H:i", $this->datum); ?> Uhr</p>
+	<?php endif; ?>
+
 </div>

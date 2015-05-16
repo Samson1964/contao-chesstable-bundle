@@ -1,5 +1,9 @@
 # Schachtabelle Changelog
 
+## Version 1.1.2 (2015-05-16)
+
+- New: Aktualisierungsdatum der Tabelle kann optional ausgegeben werden.
+
 ## Version 1.1.1 (2014-10-22)
 
 - bei aktivierter Flaggenanzeige, die CSS-Klasse für das Landeskürzel nicht anzeigen
