@@ -66,6 +66,7 @@ class chesstable extends \ContentElement
 		// CSV-Daten in Tabellen-Array übertragen
 		$steuerspalte = 0;
 		$tabelle = array();
+		$eigenklasse = array(); // Array, um die eigenen Klassennamen zu speichern
 		$spaltenart = array();
 		$zeile = explode("\n",$csv); // Zeilen trennen
 		for($x=0;$x<count($zeile);$x++)
@@ -73,8 +74,8 @@ class chesstable extends \ContentElement
 			$spalte = explode(";",$zeile[$x]); // Spalten trennen
 			for($y=0;$y<count($spalte);$y++)
 			{
-				// Getrimmten Wert in Tabelle eintragen
-				$tabelle[$x][$y] = trim($spalte[$y]);
+				$temp = trim($spalte[$y]); // Feldinhalt trimmen
+				list($tabelle[$x][$y], $eigenklasse[$x][$y]) = $this->ExtractClass($temp); // Eigene Klasse finden
 				// Wenn oberste Zeile, dann Spaltenart feststellen
 				if($x == 0)
 				{
@@ -139,6 +140,7 @@ class chesstable extends \ContentElement
 			{
 				$sp = $y+1; // Spaltennummer ab 1 statt 0
 				$wert = $tabelle[$x][$y]; // Wert aus Tabelle zuweisen
+				$ownclass = $eigenklasse[$x][$y]; // Klasse aus Tabelle zuweisen
 				
 				// Zeilenart td oder th einstellen
 				if($ze == 1 || $kopfzeile) 
@@ -154,7 +156,7 @@ class chesstable extends \ContentElement
 					$wert = $this->NameDrehen($wert);
 				}
 				if(in_array($wert,$blindfelder))
-					$content .= "<$td class=\"row$ze col$sp blindfield $klasse\">".$wert."</$td>\n";
+					$content .= "<$td class=\"row$ze col$sp blindfield $klasse$ownclass\">".$wert."</$td>\n";
 				else if($klasse == "control") // Spalte 'control' nicht anzeigen
 					$content .= "";
 				else if($td == "td" && $klasse == "nation") // wenn Spalte 'nation'
@@ -165,27 +167,27 @@ class chesstable extends \ContentElement
 						$flaggenurl = "system/modules/chesstable/assets/images/flags/".strtolower($wert).".jpg";
 						$flaggendatei = $_SERVER["DOCUMENT_ROOT"]."/".$flaggenurl;
 						if(file_exists($flaggendatei))
-							$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse\"><img src=\"".$flaggenurl."\" width=\"23\" height=\"15\" /></$td>\n";
+							$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse$ownclass\"><img src=\"".$flaggenurl."\" width=\"23\" height=\"15\" /></$td>\n";
 						else
-							$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse ".strtolower($wert)." \">".$wert."</$td>\n"; // Nationenname als title und class einfügen
+							$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse$ownclass ".strtolower($wert)." \">".$wert."</$td>\n"; // Nationenname als title und class einfügen
 					}
 					else
 					{
 						// Länderkürzel oder Flagge mit CSS
-						$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse ".strtolower($wert)."\">".$wert."</$td>\n"; // Nationenname als title und class einfügen
+						$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse$ownclass ".strtolower($wert)."\">".$wert."</$td>\n"; // Nationenname als title und class einfügen
 					}
 				}
 				else if($td == "th" && $klasse == "color") // wenn Spaltenkopf 'farbe'
-					$content .= "<$td title=\"".$wert."\" class=\"row$ze $klasse\">&nbsp;</$td>\n"; // Farbspalte ohne Inhalt in th
+					$content .= "<$td title=\"".$wert."\" class=\"row$ze $klasse$ownclass\">&nbsp;</$td>\n"; // Farbspalte ohne Inhalt in th
 				else if($td == "td" && $klasse == "color") // wenn Spalte 'farbe'
 				{
 					// Farbe feststellen und CSS-Klasse entsprechend modifizieren
 					if(strtolower($wert) == "w") $klasse .= "_w";
 					if(strtolower($wert) == "b") $klasse .= "_b";
-					$content .= "<$td title=\"".$wert."\" class=\"row$ze $klasse\">&nbsp;</$td>\n"; // Farbspalte
+					$content .= "<$td title=\"".$wert."\" class=\"row$ze $klasse$ownclass\">&nbsp;</$td>\n"; // Farbspalte
 				}
 				else
-					$content .= "<$td class=\"row$ze col$sp $klasse\">".$wert."</$td>\n";
+					$content .= "<$td class=\"row$ze col$sp $klasse$ownclass\">".$wert."</$td>\n";
 			}
 			$content .= "</tr>\n";
 			$kopfzeile = false; 
@@ -236,5 +238,31 @@ class chesstable extends \ContentElement
 		return $result;
 	}
 
+	protected function ExtractClass($wert)
+	{
+		$pos1 = strpos($wert, '{');
+		if($pos1 === false)
+		{
+			// Startzeichen nicht vorhanden
+			return array($wert, '');
+		}
+		else
+		{
+			$pos2 = strpos($wert, '}');
+			if($pos2 === false)
+			{
+				// Endezeichen nicht vorhanden
+				return array($wert, '');
+			}
+			else
+			{
+				$pos2 = strpos($wert, '}');
+				// Werte trennen
+				$class = ' own_' . substr($wert, $pos1 + 1, $pos2 - $pos1 - 1);
+				$value = substr($wert, 0, $pos1) . substr($wert, $pos2 + 1);
+				return array($value, $class);
+			}
+		}
+	}
 }
 ?>

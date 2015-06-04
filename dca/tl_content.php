@@ -27,7 +27,15 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_csv'] = array
 	'exclude'       => true,
 	'search'        => true,
 	'inputType'     => 'textarea',
-	'eval'          => array('allowHtml'=>true, 'class'=>'monospace', 'rows'=>30, 'rte'=>'ace'),
+	'eval'          => array
+					   (
+					   		'allowHtml'  => true, 
+					   		'class'      => 'monospace', 
+					   		'rows'       => 30, 
+					   		'rte'        => 'ace',
+					   		'helpwizard' => true
+					   ),
+	'explanation'   => 'chesstable_csv',
 	'sql'           => "mediumtext NULL",
 );
 
@@ -35,7 +43,15 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_file'] = array
 (
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['chesstable_file'],
 	'inputType'     => 'fileTree',
-	'eval'          => array('files'=>true, 'filesOnly'=>true, 'fieldType'=>'radio', 'extensions'=>'csv,txt', 'maxlength'=>255, 'helpwizard'=>true),
+	'eval'          => array
+					   (
+					   		'files'      => true, 
+					   		'filesOnly'  => true, 
+					   		'fieldType'  =>'radio', 
+					   		'extensions' => 'csv,txt', 
+					   		'maxlength'  => 255, 
+					   		'helpwizard' => true
+					   ),
 	'sql'           => "varchar(255) NOT NULL default ''",
 );
 
@@ -43,7 +59,13 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_aufsteiger'] = array
 (
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['chesstable_aufsteiger'],
 	'inputType'     => 'text',
-	'eval'          => array('tl_class'=> 'w50', 'maxlength'=>32),
+	'eval'          => array
+					   (
+					   		'tl_class'   => 'w50', 
+					   		'maxlength'  => 32,
+					   		'helpwizard' => true,
+					   ),
+	'explanation'   => 'chesstable_aufsteiger',
 	'sql'           => "varchar(32) NOT NULL default ''",
 );
 
@@ -51,7 +73,13 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_absteiger'] = array
 (
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['chesstable_absteiger'],
 	'inputType'     => 'text',
-	'eval'          => array('tl_class'=> 'w50', 'maxlength'=>32),
+	'eval'          => array
+					   (
+					   		'tl_class'   => 'w50', 
+					   		'maxlength'  => 32,
+					   		'helpwizard' => true,
+					   ),
+	'explanation'   => 'chesstable_absteiger',
 	'sql'           => "varchar(32) NOT NULL default ''",
 );
 
@@ -59,7 +87,13 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_markieren'] = array
 (
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['chesstable_markieren'],
 	'inputType'     => 'text',
-	'eval'          => array('tl_class'=> 'w50', 'maxlength'=>255),
+	'eval'          => array
+					   (
+					   		'tl_class'   => 'w50', 
+					   		'maxlength'  =>255,
+					   		'helpwizard' => true,
+					   ),
+	'explanation'   => 'chesstable_markieren',
 	'sql'           => "varchar(255) NOT NULL default ''",
 );
 
@@ -67,7 +101,13 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_namendrehen'] = array
 (
 	'label'         => &$GLOBALS['TL_LANG']['tl_content']['chesstable_namendrehen'],
 	'inputType'     => 'checkbox',
-	'eval'          => array('tl_class' => 'w50','isBoolean' => true),
+	'eval'          => array
+					   (
+					   		'tl_class'   => 'w50',
+					   		'isBoolean'  => true,
+					   		'helpwizard' => true,
+					   ),
+	'explanation'   => 'Hilfetext',
 	'sql'           => "char(1) NOT NULL default ''",
 );
 

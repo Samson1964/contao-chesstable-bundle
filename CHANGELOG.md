@@ -1,8 +1,13 @@
 # Schachtabelle Changelog
 
+## Version 1.1.3 (2015-06-04)
+
+- Neu: Hilfefunktion beim Inhaltselement
+- Neu: Eigene CSS-Klasse in allen Spalten möglich
+
 ## Version 1.1.2 (2015-05-16)
 
-- New: Aktualisierungsdatum der Tabelle kann optional ausgegeben werden.
+- Neu: Aktualisierungsdatum der Tabelle kann optional ausgegeben werden.
 
 ## Version 1.1.1 (2014-10-22)
 
