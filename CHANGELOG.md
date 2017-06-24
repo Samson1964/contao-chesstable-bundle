@@ -1,5 +1,9 @@
 # Schachtabelle Changelog
 
+## Version 1.2.0 (2016-07-27)
+
+- Neu: Turnierendedatum hinzugefügt
+
 ## Version 1.1.3 (2015-06-04)
 
 - Neu: Hilfefunktion beim Inhaltselement
