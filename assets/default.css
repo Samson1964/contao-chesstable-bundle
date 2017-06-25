@@ -1,12 +1,13 @@
 .ce_chesstable
 {
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 .chesstable 
 {
 	white-space: nowrap;
-	margin-bottom: 10px;
+    border-spacing: 2px;
+    border-collapse: separate;	
 }
 
 .chesstable tr.up 
@@ -30,7 +31,7 @@
 	border-right: 1px solid #adadad;
 	border-style: solid;
 	border-width: 1px;
-	padding: 1px;
+	padding: 2px;
 }
 
 .chesstable td.place 
