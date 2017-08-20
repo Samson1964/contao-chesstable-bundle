@@ -207,6 +207,7 @@ class chesstable extends \ContentElement
 			$this->Template->tabelle = $content;
 			$this->Template->datum = $aktdatum;
 			$this->Template->turnierende = $this->chesstable_ende;
+			$this->Template->hinweis = $this->chesstable_note;
 		}
 		else
 		{
@@ -216,6 +217,7 @@ class chesstable extends \ContentElement
 			$this->Template->tabelle = $content;
 			$this->Template->datum = $aktdatum;
 			$this->Template->turnierende = $this->chesstable_ende;
+			$this->Template->hinweis = $this->chesstable_note;
 		}
 
 		return;
