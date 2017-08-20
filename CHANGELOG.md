@@ -1,5 +1,9 @@
 # Schachtabelle Changelog
 
+## Version 1.3.0 (2016-08-20)
+
+- Neu: Absteiger/Aufsteiger/Sonstige Zeilen jetzt auch von-bis möglich (Bsp. 3-7)
+- Fix: Blindfelder mit Großbuchstaben wurden nicht angezeigt. Groß- und Kleinschreibung ist jetzt egal
 - Neu: Hinweistext hinzugefügt, der unter der Tabelle erscheinen kann
 
 ## Version 1.2.0 (2016-07-27)

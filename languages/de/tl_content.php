@@ -16,11 +16,11 @@ $GLOBALS['TL_LANG']['tl_content']['chesstable_csv']['1'] = "Hier tragen Sie die 
 $GLOBALS['TL_LANG']['tl_content']['chesstable_file']['0'] = "Oder alternative Datei einbinden";
 $GLOBALS['TL_LANG']['tl_content']['chesstable_file']['1'] = "Wählen Sie eine CSV-Datei aus";
 $GLOBALS['TL_LANG']['tl_content']['chesstable_aufsteiger']['0'] = 'Aufsteiger';
-$GLOBALS['TL_LANG']['tl_content']['chesstable_aufsteiger']['1'] = 'Tragen Sie hier die Zeilennummern der Aufsteiger mit Komma getrennt ein. Orientieren Sie sich dabei an den Zeilennummern der Textarea!';
+$GLOBALS['TL_LANG']['tl_content']['chesstable_aufsteiger']['1'] = 'Tragen Sie hier die Zeilennummern der Aufsteiger mit Komma und Bindestrich getrennt ein. Bsp.: 1,3-5,11. Orientieren Sie sich dabei an den Zeilennummern der Textarea!';
 $GLOBALS['TL_LANG']['tl_content']['chesstable_absteiger']['0'] = 'Absteiger';
-$GLOBALS['TL_LANG']['tl_content']['chesstable_absteiger']['1'] = 'Tragen Sie hier die Zeilennummern der Absteiger mit Komma getrennt ein. Orientieren Sie sich dabei an den Zeilennummern der Textarea!';
+$GLOBALS['TL_LANG']['tl_content']['chesstable_absteiger']['1'] = 'Tragen Sie hier die Zeilennummern der Absteiger mit Komma und Bindestrich getrennt ein. Bsp.: 1,3-5,11. Orientieren Sie sich dabei an den Zeilennummern der Textarea!';
 $GLOBALS['TL_LANG']['tl_content']['chesstable_markieren']['0'] = 'Sonstige Zeilen';
-$GLOBALS['TL_LANG']['tl_content']['chesstable_markieren']['1'] = 'Tragen Sie hier die Zeilennummern der zu markierenden Zeilen mit Komma getrennt ein. Orientieren Sie sich dabei an den Zeilennummern der Textarea!';
+$GLOBALS['TL_LANG']['tl_content']['chesstable_markieren']['1'] = 'Tragen Sie hier die Zeilennummern der zu markierenden Zeilen mit Komma und Bindestrich getrennt ein. Bsp.: 1,3-5,11. Orientieren Sie sich dabei an den Zeilennummern der Textarea!';
 $GLOBALS['TL_LANG']['tl_content']['chesstable_namendrehen']['0'] = "Spielernamen drehen";
 $GLOBALS['TL_LANG']['tl_content']['chesstable_namendrehen']['1'] = "Der Inhalt der Spielerspalte wird am Komma getrennt und gedreht.";
 $GLOBALS['TL_LANG']['tl_content']['chesstable_flaggen']['0'] = 'Flaggen anzeigen';
@@ -40,5 +40,3 @@ $GLOBALS['TL_LANG']['tl_content']['chesstable_legend_csv'] = 'CSV-Daten';
 $GLOBALS['TL_LANG']['tl_content']['chesstable_legend_aufab'] = 'Markierungen von Zeilen';
 $GLOBALS['TL_LANG']['tl_content']['chesstable_legend_lightbox'] = 'Tabelle in einer Lightbox';
 $GLOBALS['TL_LANG']['tl_content']['chesstable_legend_optionen'] = 'Weitere Optionen';
-
-?>

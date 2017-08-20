@@ -19,17 +19,17 @@ $GLOBALS['TL_LANG']['XPL']['chesstable_csv'] = array
 
 $GLOBALS['TL_LANG']['XPL']['chesstable_aufsteiger'] = array
 (
-	array('colspan', 'Sie können den Hintergrund von Zeilen farbig markieren. Geben Sie dazu eine kommagetrennte Liste der Zeilennummern ein.<br><br>Die Standardfarbe ist grün, was aber vom Administrator mit Anpassungen am CSS überschrieben werden kann.'),
+	array('colspan', 'Sie können den Hintergrund von Zeilen farbig markieren. Geben Sie dazu eine kommagetrennte Liste der Zeilennummern ein. Sie können dabei mehrere Zeilen mit Bindestrich getrennt zusammenfassen.<br><br>Die Standardfarbe ist grün, was aber vom Administrator mit Anpassungen am CSS überschrieben werden kann.'),
 );
 
 $GLOBALS['TL_LANG']['XPL']['chesstable_absteiger'] = array
 (
-	array('colspan', 'Sie können den Hintergrund von Zeilen farbig markieren. Geben Sie dazu eine kommagetrennte Liste der Zeilennummern ein.<br><br>Die Standardfarbe ist rot, was aber vom Administrator mit Anpassungen am CSS überschrieben werden kann.'),
+	array('colspan', 'Sie können den Hintergrund von Zeilen farbig markieren. Geben Sie dazu eine kommagetrennte Liste der Zeilennummern ein. Sie können dabei mehrere Zeilen mit Bindestrich getrennt zusammenfassen.<br><br>Die Standardfarbe ist rot, was aber vom Administrator mit Anpassungen am CSS überschrieben werden kann.'),
 );
 
 $GLOBALS['TL_LANG']['XPL']['chesstable_markieren'] = array
 (
-	array('colspan', 'Sie können den Hintergrund von Zeilen farbig markieren. Geben Sie dazu eine kommagetrennte Liste der Zeilennummern ein.<br><br>Die Standardfarbe ist gelb, was aber vom Administrator mit Anpassungen am CSS überschrieben werden kann.'),
+	array('colspan', 'Sie können den Hintergrund von Zeilen farbig markieren. Geben Sie dazu eine kommagetrennte Liste der Zeilennummern ein. Sie können dabei mehrere Zeilen mit Bindestrich getrennt zusammenfassen.<br><br>Die Standardfarbe ist gelb, was aber vom Administrator mit Anpassungen am CSS überschrieben werden kann.'),
 );
 
 $GLOBALS['TL_LANG']['XPL']['chesstable_markieren2'] = array

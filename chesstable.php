@@ -42,7 +42,12 @@ class chesstable extends \ContentElement
 		$lightbox = $this->chesstable_lightbox;
 		$linktext = $this->chesstable_linktext;
 		$flagge = $this->chesstable_flaggen;
-		
+
+		// Array-Werte wie z.B. "1-5" weiter auflösen in 1,2,3,4,5
+		$aufsteiger = $this->ArrayAufloesen($aufsteiger);
+		$absteiger = $this->ArrayAufloesen($absteiger);
+		$markieren = $this->ArrayAufloesen($markieren);
+
 		// Aktualisierungsdatum
 		($this->chesstable_date) ? $aktdatum = $this->tstamp : $aktdatum = 0;
 		
@@ -155,7 +160,7 @@ class chesstable extends \ContentElement
 				{
 					$wert = $this->NameDrehen($wert);
 				}
-				if(in_array($wert,$blindfelder))
+				if(in_array(strtolower($wert),$blindfelder))
 					$content .= "<$td class=\"row$ze col$sp blindfield $klasse$ownclass\">".$wert."</$td>\n";
 				else if($klasse == "control") // Spalte 'control' nicht anzeigen
 					$content .= "";
@@ -222,6 +227,36 @@ class chesstable extends \ContentElement
 
 		return;
 
+	}
+
+	/**
+	 * Funktion ArrayAufloesen
+	 *
+	 * @param     array           Bsp.: array('1','3-7','8-9','34')
+	 *
+	 * @return    array           Bsp.: array('1','3','4','5','6','7','8','9','34')
+	 */
+	protected function ArrayAufloesen($array)
+	{
+		$newArray = array();
+		foreach($array as $item)
+		{
+			if(ctype_digit($item))
+			{
+				// Integerzahl direkt übernehmen
+				$newArray[] = $item;
+			}
+			else
+			{
+				// String in der Form "Zahl-Zahl" auflösen
+				$temp = explode("-", $item);
+				for($x = $temp[0]; $x <= $temp[1]; $x++)
+				{
+					$newArray[] = $x;
+				}
+			}
+		}
+		return $newArray;
 	}
 
 	protected function kleinschreibung($wert)
