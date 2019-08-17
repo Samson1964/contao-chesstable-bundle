@@ -146,6 +146,7 @@ class chesstable extends \ContentElement
 				$sp = $y+1; // Spaltennummer ab 1 statt 0
 				$wert = $tabelle[$x][$y]; // Wert aus Tabelle zuweisen
 				$ownclass = $eigenklasse[$x][$y]; // Klasse aus Tabelle zuweisen
+				$wert = \Controller::replaceInsertTags($wert); // Inserttags ersetzen
 				
 				// Zeilenart td oder th einstellen
 				if($ze == 1 || $kopfzeile) 

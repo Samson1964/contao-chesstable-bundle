@@ -1,5 +1,5 @@
 <?php
-	$GLOBALS['TL_CSS']['chesstable'] = 'system/modules/chesstable/assets/default.css';
+	$GLOBALS['TL_CSS'][] = 'system/modules/chesstable/assets/default.css|static';
 ?>
 
 <?php $this->extend('block_searchable'); ?>

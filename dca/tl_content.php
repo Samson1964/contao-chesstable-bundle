@@ -152,7 +152,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_note'] = array
 	'inputType'               => 'text',
 	'eval'                    => array
 	(
-		'tl_class'            => 'long',
+		'tl_class'            => 'w50 long',
 		'maxlength'           => 255,
 	),
 	'sql'                     => "varchar(255) NOT NULL default ''",
@@ -163,14 +163,14 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_lightbox'] = array
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['chesstable_lightbox'],
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
-	'eval'                    => array('tl_class'=>'clr','isBoolean' => true,'submitOnChange'=>true),
+	'eval'                    => array('tl_class'=>'w50 clr','isBoolean' => true,'submitOnChange'=>true),
 	'sql'                     => "char(1) NOT NULL default ''",
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_hinweis'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['chesstable_hinweis'],
-	'eval'                    => array('tl_class'=>'clr'),
+	'eval'                    => array('tl_class'=>'long clr'),
 	'input_field_callback'    => array('tl_chesstable', 'jshinweis'),
 );
 
@@ -178,7 +178,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_linktext'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['chesstable_linktext'],
 	'inputType'               => 'text',
-	'eval'                    => array('tl_class'=> 'clr', 'maxlength'=>32),
+	'eval'                    => array('tl_class'=> 'w50 clr', 'maxlength'=>32),
 	'sql'                     => "varchar(32) NOT NULL default ''",
 );
 
