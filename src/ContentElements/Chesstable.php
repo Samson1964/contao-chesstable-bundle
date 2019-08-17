@@ -172,7 +172,7 @@ class Chesstable extends \ContentElement
 					if($flagge)
 					{
 						// Flagge anzeigen, wenn vorhanden
-						$flaggenurl = "system/modules/chesstable/assets/images/flags/".strtolower($wert).".jpg";
+						$flaggenurl = "bundles/contaochesstable/images/flags/".strtolower($wert).".jpg";
 						$flaggendatei = $_SERVER["DOCUMENT_ROOT"]."/".$flaggenurl;
 						if(file_exists($flaggendatei))
 							$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse$ownclass\"><img src=\"".$flaggenurl."\" width=\"23\" height=\"15\" /></$td>\n";

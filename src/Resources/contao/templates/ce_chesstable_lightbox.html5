@@ -1,20 +1,20 @@
 <?php
-	$GLOBALS['TL_CSS'][] = 'system/modules/chesstable/assets/default.css';
-	$GLOBALS['TL_JQUERY'][] = '<script type="text/javascript" src="system/modules/chesstable/assets/lightbox.js"></script>';
+	$GLOBALS['TL_CSS'][] = 'bundles/contaochesstable/default.css';
+	$GLOBALS['TL_JQUERY'][] = '<script type="text/javascript" src="bundles/contaochesstable/lightbox.js"></script>';
 ?>
 
-<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?> style="<?php if ($this->margin): ?><?php echo trim($this->margin); ?><?php endif; ?> <?php if ($this->style): ?><?php echo $this->style; ?><?php endif; ?>">
+<div class="<?= $this->class ?> block"<?= $this->cssID ?> style="<?php if ($this->margin): ?><?= trim($this->margin) ?><?php endif; ?> <?php if ($this->style): ?><?= $this->style ?><?php endif; ?>">
 
 	<div class="chesstable_container">
-		<a href="#chesstable_<?php echo $this->id; ?>" class="chesstable-popup"><?php echo $this->linktext; ?></a>
+		<a href="#chesstable_<?= $this->id ?>" class="chesstable-popup"><?= $this->linktext ?></a>
 		<div style="display: none;">
-			<div id="chesstable_<?php echo $this->id; ?>" class="chesstable_lightbox">
+			<div id="chesstable_<?= $this->id ?>" class="chesstable_lightbox">
 				<?php if ($this->headline): ?>
-					<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+					<<?= $this->hl ?>><?= $this->headline ?></<?= $this->hl ?>>
 				<?php endif; ?>
-				<?php echo $this->tabelle; ?>
+				<?= $this->tabelle ?>
 				<?php if ($this->datum): ?>
-					<p class="update">Aktualisiert am <?php echo date("d.m.Y H:i", $this->datum); ?> Uhr</p>
+					<p class="update">Aktualisiert am <?= date("d.m.Y H:i", $this->datum) ?> Uhr</p>
 				<?php endif; ?>
 			</div>
 		</div>
