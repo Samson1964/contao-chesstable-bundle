@@ -16,7 +16,7 @@
  * CONTENT ELEMENTS
  * -------------------------------------------------------------------------
  */
-$GLOBALS['TL_CTE']['schach']['chesstable'] = 'chesstable';
+$GLOBALS['TL_CTE']['schach']['chesstable'] = 'Schachbulle\ContaoChesstableBundle\ContentElements\Chesstable';
 
 /**
  * -------------------------------------------------------------------------
