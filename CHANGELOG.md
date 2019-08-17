@@ -1,5 +1,10 @@
 # Schachtabelle Changelog
 
+## Version 1.3.1 (2018-08-17)
+
+- Fix: Anpassung CSS-Klassen an Contao 4
+- Add: Ersetzung von Inserttags
+
 ## Version 1.3.0 (2016-08-20)
 
 - Neu: Absteiger/Aufsteiger/Sonstige Zeilen jetzt auch von-bis möglich (Bsp. 3-7)
