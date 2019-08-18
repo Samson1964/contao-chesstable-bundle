@@ -187,7 +187,9 @@ class tl_chesstable extends Backend
 
 	public function jshinweis(DataContainer $dc)
 	{
-		return '<p class="tl_info">'.sprintf($GLOBALS['TL_LANG']['tl_content']['includeTemplate'], 'j_colorbox').'</p>';
+		return '<div class="tl_message clr">
+			<p class="tl_info">'.sprintf($GLOBALS['TL_LANG']['tl_content']['includeTemplate'], 'j_colorbox').'</p>
+			</div>';
 	}
 }
 

@@ -9,13 +9,31 @@
 		<a href="#chesstable_<?= $this->id ?>" class="chesstable-popup"><?= $this->linktext ?></a>
 		<div style="display: none;">
 			<div id="chesstable_<?= $this->id ?>" class="chesstable_lightbox">
+
 				<?php if ($this->headline): ?>
 					<<?= $this->hl ?>><?= $this->headline ?></<?= $this->hl ?>>
 				<?php endif; ?>
+
 				<?= $this->tabelle ?>
-				<?php if ($this->datum): ?>
-					<p class="update">Aktualisiert am <?= date("d.m.Y H:i", $this->datum) ?> Uhr</p>
+
+				<?php if($this->turnierende || $this->datum): ?>
+					<p class="update">
+					<?php if($this->turnierende): ?>
+						<b>Turnierende: <?= date("d.m.Y", $this->turnierende) ?></b>
+					<?php endif; ?>
+					<?php if($this->turnierende && $this->datum): ?>
+						|
+					<?php endif; ?>
+					<?php if ($this->datum): ?>
+						<i>Aktualisiert am <?= date("d.m.Y H:i", $this->datum) ?> Uhr</i>
+					<?php endif; ?>
+					</p>
 				<?php endif; ?>
+
+				<?php if($this->hinweis): ?>
+					<p class="hinweis"><?= $this->hinweis ?></p>
+				<?php endif; ?>
+
 			</div>
 		</div>
 	</div>
