@@ -34,6 +34,9 @@ class Chesstable extends \ContentElement
 		//print_r($GLOBALS);
 		//echo "ID=".$objPage->id;
 
+		// Symlink erstellen
+		if(!is_link(TL_ROOT.'/web/bundles/flag-icon-css')) symlink(TL_ROOT.'/vendor/components/flag-icon-css/', TL_ROOT.'/web/bundles/flag-icon-css'); // Ziel, Name
+		
 		// Parameter zuweisen
 		$csv = $this->chesstable_csv;
 		$file = $this->chesstable_file;
