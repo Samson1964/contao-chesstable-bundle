@@ -1,6 +1,10 @@
 # Schachtabelle Changelog
 
-## Version 2.1.0 (2018-08-18)
+## Version 2.1.1 (2019-09-04)
+
+- Fix: Flagge wurde angezeigt, auch wenn nicht vorhanden
+
+## Version 2.1.0 (2019-08-18)
 
 - Add: Abhängigkeit zu components/flag-icon-css für die Flaggen, Löschung der eigenen Flaggen
 - Fix: Im Lightbox-Modus wurden nicht alle Informationen ausgegeben
@@ -8,7 +12,7 @@
 - Add: Im CSV kann je Spalte eine zusätzliche CSS-Klasse gesetzt werden, z.B. [gg] - ergibt die CSS-Klasse own_gg
 - Fix: Ersetzung von Contao-Inserrtags funktioniert wieder
 
-## Version 2.0.0 - 2.0.1 (2018-08-17)
+## Version 2.0.0 - 2.0.1 (2019-08-17)
 
 - Initialversion als Contao-4-Bundle
 

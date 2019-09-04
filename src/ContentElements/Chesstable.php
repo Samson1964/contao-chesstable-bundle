@@ -171,7 +171,7 @@ class Chesstable extends \ContentElement
 					$content .= "";
 				else if($td == "td" && $klasse == "nation") // wenn Spalte 'nation'
 				{
-					if($flagge)
+					if($flagge) // Flaggen anzeigen ist aktiviert
 					{
 						// Flaggen-CSS bestimmen
 						$flag_css = self::Laendercode($wert);
@@ -181,7 +181,7 @@ class Chesstable extends \ContentElement
 						else
 							$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse$ownclass\"><span class=\"ioc_code\">$wert</span></$td>\n";
 					}
-					else
+					else // Flaggen anzeigen ist nicht aktiviert
 					{
 						// Länderkürzel oder Flagge mit CSS
 						$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse$ownclass ".strtolower($wert)."\">".$wert."</$td>\n"; // Nationenname als title und class einfügen
@@ -328,7 +328,9 @@ class Chesstable extends \ContentElement
 	 */
 	protected function Laendercode($ioc)
 	{
-		$ioc = strtoupper($ioc);
+		$ioc = trim(strtoupper($ioc));
+		if(!$ioc) return '';
+
 		foreach($this->countries as $country)
 		{
 			if($country['ioc'] == $ioc)
