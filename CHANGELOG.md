@@ -1,5 +1,9 @@
 # Schachtabelle Changelog
 
+## Version 2.1.2 (2019-09-27)
+
+Fix: Abhängigkeit core-bundle auf ^4 geändert
+
 ## Version 2.1.1 (2019-09-04)
 
 - Fix: Flagge wurde angezeigt, auch wenn nicht vorhanden
