@@ -1,12 +1,16 @@
 # Schachtabelle Changelog
 
+## Version 2.1.4 (2020-03-20)
+
+- Change: Feldlängen für farbliche Hervorhebungen verlängert
+
 ## Version 2.1.3 (2019-09-30)
 
-Fix: Abhängigkeit Symfony entfernt
+- Fix: Abhängigkeit Symfony entfernt
 
 ## Version 2.1.2 (2019-09-27)
 
-Fix: Abhängigkeit core-bundle auf ^4 geändert
+- Fix: Abhängigkeit core-bundle auf ^4 geändert
 
 ## Version 2.1.1 (2019-09-04)
 

@@ -61,12 +61,12 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_aufsteiger'] = array
 	'inputType'               => 'text',
 	'eval'                    => array
 	(
-		'tl_class'            => 'w50',
+		'tl_class'            => 'long',
 		'maxlength'           => 32,
 		'helpwizard'          => true,
 	),
 	'explanation'             => 'chesstable_aufsteiger',
-	'sql'                     => "varchar(32) NOT NULL default ''",
+	'sql'                     => "varchar(255) NOT NULL default ''",
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_absteiger'] = array
@@ -75,12 +75,12 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_absteiger'] = array
 	'inputType'               => 'text',
 	'eval'                    => array
 	(
-		'tl_class'            => 'w50',
+		'tl_class'            => 'long',
 		'maxlength'           => 32,
 		'helpwizard'          => true,
 	),
 	'explanation'             => 'chesstable_absteiger',
-	'sql'                     => "varchar(32) NOT NULL default ''",
+	'sql'                     => "varchar(255) NOT NULL default ''",
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_markieren'] = array
@@ -89,7 +89,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_markieren'] = array
 	'inputType'               => 'text',
 	'eval'                    => array
 	(
-		'tl_class'            => 'w50',
+		'tl_class'            => 'long',
 		'maxlength'           =>255,
 		'helpwizard'          => true,
 	),
