@@ -1,5 +1,9 @@
 # Schachtabelle Changelog
 
+## Version 2.1.5 (2020-03-20)
+
+- Fix: Feldlängen über 32 Zeichen nicht erlaubt
+
 ## Version 2.1.4 (2020-03-20)
 
 - Change: Feldlängen für farbliche Hervorhebungen verlängert

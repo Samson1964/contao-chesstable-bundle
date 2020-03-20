@@ -62,7 +62,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_aufsteiger'] = array
 	'eval'                    => array
 	(
 		'tl_class'            => 'long',
-		'maxlength'           => 32,
+		'maxlength'           => 255,
 		'helpwizard'          => true,
 	),
 	'explanation'             => 'chesstable_aufsteiger',
@@ -76,7 +76,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_absteiger'] = array
 	'eval'                    => array
 	(
 		'tl_class'            => 'long',
-		'maxlength'           => 32,
+		'maxlength'           => 255,
 		'helpwizard'          => true,
 	),
 	'explanation'             => 'chesstable_absteiger',
