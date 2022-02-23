@@ -12,7 +12,8 @@
     "require": {
         "php": "^5.6 || ^7.0",
         "contao/core-bundle": "^4",
-        "components/flag-icon-css": "^3.3"
+        "components/flag-icon-css": "^3.5",
+        "menatwork/contao-multicolumnwizard-bundle": "*"
     },
     "conflict": {
         "contao/core": "*",

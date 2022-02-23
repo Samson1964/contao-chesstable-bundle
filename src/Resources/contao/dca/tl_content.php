@@ -1,4 +1,6 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
+
+use Contao\CoreBundle\DataContainer\PaletteManipulator;
 
 /**
  * Contao Open Source CMS
@@ -15,7 +17,7 @@
  * Palettes
  */
 $GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'chesstable_lightbox';
-$GLOBALS['TL_DCA']['tl_content']['palettes']['chesstable'] = '{type_legend},type,headline;{chesstable_legend_csv},chesstable_csv;{chesstable_legend_aufab},chesstable_aufsteiger,chesstable_absteiger,chesstable_markieren;{chesstable_legend_lightbox},chesstable_lightbox;{chesstable_legend_optionen},chesstable_namendrehen,chesstable_flaggen,chesstable_date,chesstable_ende,chesstable_note;{protected_legend:hide},protected;{expert_legend:hide},guest,cssID,space;{invisible_legend:hide},invisible,start,stop';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['chesstable'] = '{type_legend},type,headline;{chesstable_legend_csv},chesstable_csv;{chesstable_legend_aufab},chesstable_markierungen,chesstable_markBold,chesstable_markItalic;{chesstable_legend_lightbox},chesstable_lightbox;{chesstable_legend_optionen},chesstable_namendrehen,chesstable_flaggen,chesstable_date,chesstable_ende,chesstable_note;{protected_legend:hide},protected;{expert_legend:hide},guest,cssID;{invisible_legend:hide},invisible,start,stop';
 $GLOBALS['TL_DCA']['tl_content']['subpalettes']['chesstable_lightbox'] = 'chesstable_linktext,chesstable_hinweis';
 
 /**
@@ -55,46 +57,52 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_file'] = array
 	'sql'                     => "varchar(255) NOT NULL default ''",
 );
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_aufsteiger'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_markBold'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['chesstable_aufsteiger'],
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['chesstable_markBold'],
 	'inputType'               => 'text',
 	'eval'                    => array
 	(
 		'tl_class'            => 'long',
-		'maxlength'           => 255,
-		'helpwizard'          => true,
 	),
-	'explanation'             => 'chesstable_aufsteiger',
-	'sql'                     => "varchar(255) NOT NULL default ''",
+	'sql'                     => "blob NULL",
 );
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_absteiger'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_markItalic'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['chesstable_absteiger'],
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['chesstable_markItalic'],
 	'inputType'               => 'text',
 	'eval'                    => array
 	(
 		'tl_class'            => 'long',
-		'maxlength'           => 255,
-		'helpwizard'          => true,
 	),
-	'explanation'             => 'chesstable_absteiger',
-	'sql'                     => "varchar(255) NOT NULL default ''",
+	'sql'                     => "blob NULL",
 );
+//
+//$GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_markieren'] = array
+//(
+//	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['chesstable_markieren'],
+//	'inputType'               => 'text',
+//	'eval'                    => array
+//	(
+//		'tl_class'            => 'long',
+//		'maxlength'           => 255,
+//		'helpwizard'          => true,
+//	),
+//	'explanation'             => 'chesstable_markieren',
+//	'sql'                     => "varchar(255) NOT NULL default ''",
+//);
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_markieren'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_markierungen'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['chesstable_markieren'],
-	'inputType'               => 'text',
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['chesstable_markierungen'],
+	'inputType'               => 'chesstableColors',
 	'eval'                    => array
 	(
 		'tl_class'            => 'long',
-		'maxlength'           =>255,
-		'helpwizard'          => true,
+		'helpwizard'          => false,
 	),
-	'explanation'             => 'chesstable_markieren',
-	'sql'                     => "varchar(255) NOT NULL default ''",
+	'sql'                     => "varchar(1024) NOT NULL default ''",
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_namendrehen'] = array
@@ -171,7 +179,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_hinweis'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['chesstable_hinweis'],
 	'eval'                    => array('tl_class'=>'long clr'),
-	'input_field_callback'    => array('tl_chesstable', 'jshinweis'),
+	'input_field_callback'    => array('tl_content_chesstable', 'jshinweis'),
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_linktext'] = array
@@ -182,7 +190,47 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_linktext'] = array
 	'sql'                     => "varchar(32) NOT NULL default ''",
 );
 
-class tl_chesstable extends Backend
+// Palette für die Farbmarkierungen manipulieren - Standardfelder up, down und high entfernen, wenn nicht definiert
+$chesstable_markColors = unserialize($GLOBALS['TL_CONFIG']['chesstable_markColors']);
+$up = false; $down = false; $high = false;
+foreach($chesstable_markColors as $item)
+{
+	if($item['intern'] == 'up')
+	{
+		$up = true;
+	}
+	elseif($item['intern'] == 'down')
+	{
+		$down = true;
+	}
+	elseif($item['intern'] == 'high')
+	{
+		$high = true;
+	}
+}
+
+//if(!$up)
+//{
+//	PaletteManipulator::create()
+//	    ->removeField('chesstable_aufsteiger', 'chesstable_legend_aufab')
+//	    ->applyToPalette('chesstable', 'tl_content');
+//}
+//if(!$down)
+//{
+//	PaletteManipulator::create()
+//	    ->removeField('chesstable_absteiger', 'chesstable_legend_aufab')
+//	    ->applyToPalette('chesstable', 'tl_content');
+//}
+//if(!$high)
+//{
+//	PaletteManipulator::create()
+//	    ->removeField('chesstable_markieren', 'chesstable_legend_aufab')
+//	    ->applyToPalette('chesstable', 'tl_content');
+//}
+//
+
+
+class tl_content_chesstable extends Backend
 {
 
 	public function jshinweis(DataContainer $dc)
@@ -191,6 +239,5 @@ class tl_chesstable extends Backend
 			<p class="tl_info">'.sprintf($GLOBALS['TL_LANG']['tl_content']['includeTemplate'], 'j_colorbox').'</p>
 			</div>';
 	}
-}
 
-?>
+}

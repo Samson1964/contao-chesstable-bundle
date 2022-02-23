@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
@@ -14,7 +14,7 @@
 /**
  * palettes
  */
-$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{chesstable_legend:hide},chesstable_blindfelder,chesstable_nationfelder,chesstable_platzfelder,chesstable_vereinfelder,chesstable_namenfelder,chesstable_punktefelder,chesstable_wertungfelder,chesstable_ratingfelder,chesstable_ergebnisfelder,chesstable_farbfelder,chesstable_steuerfelder';
+$GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{chesstable_legend:hide},chesstable_blindfelder,chesstable_nationfelder,chesstable_platzfelder,chesstable_vereinfelder,chesstable_namenfelder,chesstable_punktefelder,chesstable_wertungfelder,chesstable_ratingfelder,chesstable_ergebnisfelder,chesstable_farbfelder,chesstable_steuerfelder,chesstable_markColors,chesstable_css';
 
 /**
  * fields
@@ -97,4 +97,53 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['chesstable_steuerfelder'] = array
 	'eval'          => array('tl_class' => 'w50')
 );
 
-?>
+$GLOBALS['TL_DCA']['tl_settings']['fields']['chesstable_markColors'] = array
+(
+	'label'                               => &$GLOBALS['TL_LANG']['tl_settings']['chesstable_markColors'],
+	'exclude'                             => true,
+	'inputType'                           => 'multiColumnWizard',
+	'eval'                                => array
+	(
+		'tl_class'                        => 'long clr',
+		'buttonPos'                       => 'middle',
+		'buttons'                         => array
+		(
+			'copy'                        => false,
+			'delete'                      => 'system/themes/flexible/icons/delete.svg',
+			'move'                        => false,
+			'up'                          => 'system/themes/flexible/icons/up.svg',
+			'down'                        => 'system/themes/flexible/icons/down.svg'
+		),
+		'columnFields'                    => array
+		(
+			'intern' => array
+			(
+				'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['chesstable_markColors_intern'],
+				'exclude'                 => true,
+				'inputType'               => 'text',
+				'eval'                    => array('tl_class' => 'w50', 'style' => 'width:100%', 'mandatory' => true),
+			),
+			'name' => array
+			(
+				'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['chesstable_markColors_name'],
+				'exclude'                 => true,
+				'inputType'               => 'text',
+				'eval'                    => array('tl_class' => 'w50', 'style' => 'width:100%', 'mandatory' => true),
+			),
+			'color' => array
+			(
+				'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['chesstable_markColors_color'],
+				'exclude'                 => true,
+				'inputType'               => 'text',
+				'eval'                    => array('tl_class' => 'w50 wizard', 'colorpicker'=>true, 'style' => 'width:90%', 'mandatory' => true)
+			),
+		)
+	),
+);
+
+$GLOBALS['TL_DCA']['tl_settings']['fields']['chesstable_css'] = array
+(
+	'label'         => &$GLOBALS['TL_LANG']['tl_settings']['chesstable_css'],
+	'inputType'     => 'checkbox',
+	'eval'          => array('tl_class' => 'w50 clr')
+);

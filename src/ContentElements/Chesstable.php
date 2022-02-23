@@ -37,22 +37,40 @@ class Chesstable extends \ContentElement
 		// Symlink für das externe Bundle components/flag-icon-css erstellen, wenn noch nicht vorhanden
 		if(!is_link(TL_ROOT.'/web/bundles/flag-icon-css')) symlink(TL_ROOT.'/vendor/components/flag-icon-css/', TL_ROOT.'/web/bundles/flag-icon-css'); // Ziel, Name
 
+		// Farben aus System-Einstellungen laden
+		$markierung = array();
+		$temp = unserialize($GLOBALS['TL_CONFIG']['chesstable_markColors']);
+		foreach($temp as $item)
+		{
+			$markierung[$item['intern']] = array
+			(
+				'color'   => $item['color'] ? '#'.$item['color'] : false,
+				'rows'    => array(),
+				'flags'   => array(),
+			);
+		}
+
 		// Parameter zuweisen
 		$csv = $this->chesstable_csv;
 		$file = $this->chesstable_file;
-		$aufsteiger = explode(",",$this->chesstable_aufsteiger);
-		$absteiger = explode(",",$this->chesstable_absteiger);
-		$markieren = explode(",",$this->chesstable_markieren);
 		$namendrehen = $this->chesstable_namendrehen;
 		$lightbox = $this->chesstable_lightbox;
 		$linktext = $this->chesstable_linktext;
 		$flagge = $this->chesstable_flaggen;
 
-		// Array-Werte wie z.B. "1-5" weiter auflösen in 1,2,3,4,5
-		$aufsteiger = $this->ArrayAufloesen($aufsteiger);
-		$absteiger = $this->ArrayAufloesen($absteiger);
-		$markieren = $this->ArrayAufloesen($markieren);
+		// Farbliche Zeilenmarkierungen auflösen
+		$temp = unserialize($this->chesstable_markierungen);
+		foreach($temp as $item)
+		{
+			// Werte wie z.B. "1-5,7,10-12" weiter auflösen in "1,2,3,4,5,7,10,11,12"
+			$markierung[$item['intern']]['rows'] = $this->ArrayAufloesen(explode(",", $item['rows']));
+			$markierung[$item['intern']]['flags'] = explode(",", $item['flags']); // Länderkürzel z.B. "GER,USA" in Array umwandeln
+		}
 
+		// Fett- und Kursivmarkierungen auflösen
+		$markierungFett = $this->ArrayAufloesen(explode(",", $this->chesstable_markBold));
+		$markierungKursiv = $this->ArrayAufloesen(explode(",", $this->chesstable_markItalic));
+		
 		// Aktualisierungsdatum
 		($this->chesstable_date) ? $aktdatum = $this->tstamp : $aktdatum = 0;
 		
@@ -118,11 +136,29 @@ class Chesstable extends \ContentElement
 
 			// Wenn Steuerspalte den Wert "team" enthält, dann CSS-Klasse in Zeile eintragen
 			($steuerspalte && $tabelle[$x][$steuerspalte-1] == "team") ? $trcss = "row$ze team" : $trcss = "row$ze";
+			$trstyle = ''; // CSS-Stil der Zeile zurücksetzen
 
-			// Zeilen mit Auf- und Absteigern markieren
-			if(in_array($ze, $aufsteiger)) $trcss .= " up";
-			if(in_array($ze, $absteiger)) $trcss .= " down";
-			if(in_array($ze, $markieren)) $trcss .= " high";
+			// Zeilen farblich markieren. Auf- und Absteiger sowie gehighligtete wird zusätzlich die CSS-Klasse mitgegeben
+			foreach($markierung as $key => $value)
+			{
+				switch($key)
+				{
+					case 'up':
+					case 'down':
+					case 'high':
+						if(in_array($ze, $markierung[$key]['rows']))
+						{
+							$trstyle = $markierung[$key]['color'] ? "background-color:".$markierung[$key]['color'].";" : '';
+							$trcss .= " ".$key;
+						}
+						break;
+					default:
+						if(in_array($ze, $markierung[$key]['rows'])) 
+						{
+							$trstyle = $markierung[$key]['color'] ? "background-color:".$markierung[$key]['color'].";" : '';
+						}
+				}
+			}
 
 			// Ist ein Befehl in Spalte 1?
 			if($tabelle[$x][0] == '~')
@@ -143,8 +179,7 @@ class Chesstable extends \ContentElement
 				continue;
 			}
 			
-			$content .= "<tr class=\"$trcss\">\n";
-
+			$strZeile = ''; // Neue Zeile initialisieren
 			// Jetzt Spalten durchlaufen
 			for($y=0;$y<count($tabelle[$x]);$y++)
 			{
@@ -166,9 +201,9 @@ class Chesstable extends \ContentElement
 					$wert = $this->NameDrehen($wert);
 				}
 				if(in_array(strtolower($wert),$blindfelder))
-					$content .= "<$td class=\"row$ze col$sp blindfield $klasse$ownclass\">".$wert."</$td>\n";
+					$strZeile .= "<$td class=\"row$ze col$sp blindfield $klasse$ownclass\">".$wert."</$td>\n";
 				else if($klasse == "control") // Spalte 'control' nicht anzeigen
-					$content .= "";
+					$strZeile .= "";
 				else if($td == "td" && $klasse == "nation") // wenn Spalte 'nation'
 				{
 					if($flagge) // Flaggen anzeigen ist aktiviert
@@ -177,26 +212,37 @@ class Chesstable extends \ContentElement
 						$flag_css = self::Laendercode($wert);
 						// Flagge anzeigen, wenn vorhanden
 						if($flag_css)
-							$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse$ownclass\"><span class=\"$flag_css\"></span></$td>\n";
+							$strZeile .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse$ownclass\"><span class=\"$flag_css\"></span></$td>\n";
 						else
-							$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse$ownclass\"><span class=\"ioc_code\">$wert</span></$td>\n";
+							$strZeile .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse$ownclass\"><span class=\"ioc_code\">$wert</span></$td>\n";
 					}
 					else // Flaggen anzeigen ist nicht aktiviert
 					{
 						// Länderkürzel oder Flagge mit CSS
-						$content .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse$ownclass ".strtolower($wert)."\">".$wert."</$td>\n"; // Nationenname als title und class einfügen
+						$strZeile .= "<$td title=\"".$wert."\" class=\"row$ze col$sp $klasse$ownclass ".strtolower($wert)."\">".$wert."</$td>\n"; // Nationenname als title und class einfügen
 					}
+
+					// Ländermarkierungen übertragen, wenn Land und Farbe vorhanden
+					foreach($markierung as $key => $value)
+					{
+						if(in_array($wert, $markierung[$key]['flags']) && $markierung[$key]['color']) 
+						{
+							// Ländermarkierung überschreibt Zeilenmarkierung!
+							$trstyle = "background-color:".$markierung[$key]['color'].";";
+						}
+					}
+
 				}
 				else if($td == "th" && $klasse == "color") // wenn Spaltenkopf 'farbe'
 				{
-					$content .= "<$td title=\"".$wert."\" class=\"row$ze $klasse$ownclass\">&nbsp;</$td>\n"; // Farbspalte ohne Inhalt in th
+					$strZeile .= "<$td title=\"".$wert."\" class=\"row$ze $klasse$ownclass\">&nbsp;</$td>\n"; // Farbspalte ohne Inhalt in th
 				}
 				else if($td == "td" && $klasse == "color") // wenn Spalte 'farbe'
 				{
 					// Farbe feststellen und CSS-Klasse entsprechend modifizieren
 					if(strtolower($wert) == "w") $klasse .= "_w";
 					if(strtolower($wert) == "b") $klasse .= "_b";
-					$content .= "<$td title=\"".$wert."\" class=\"row$ze $klasse$ownclass\">&nbsp;</$td>\n"; // Farbspalte
+					$strZeile .= "<$td title=\"".$wert."\" class=\"row$ze $klasse$ownclass\">&nbsp;</$td>\n"; // Farbspalte
 				}
 				else
 				{
@@ -207,11 +253,20 @@ class Chesstable extends \ContentElement
 						elseif(stristr($wert, 'b') == true || stristr($wert, 's') == true) $boardcolor = ' black';
 						else $boardcolor = '';
 					}
-					$content .= "<$td class=\"row$ze col$sp $klasse$ownclass$boardcolor\">".$wert."</$td>\n";
+					$strZeile .= "<$td class=\"row$ze col$sp $klasse$ownclass$boardcolor\">".$wert."</$td>\n";
 				}
 				$wert = \Controller::replaceInsertTags($wert); // Inserttags ersetzen
 			}
+
+			// Zeile fett?
+			if(in_array($ze, $markierungFett)) $trstyle .= " font-weight:bold;";
+			if(in_array($ze, $markierungKursiv)) $trstyle .= " font-style:italic;";
+			
+			// Zeile übernehmen
+			$content .= "<tr class=\"$trcss\" style=\"$trstyle\">\n";
+			$content .= $strZeile;
 			$content .= "</tr>\n";
+
 			$kopfzeile = false; 
 			$spaltenzahl = count($tabelle[$x]); // Anzahl der Spalten für nächsten Schleifenlauf merken
 
@@ -241,6 +296,9 @@ class Chesstable extends \ContentElement
 			$this->Template->turnierende = $this->chesstable_ende;
 			$this->Template->hinweis = $this->chesstable_note;
 		}
+
+		// CSS aktivieren
+		if($GLOBALS['TL_CONFIG']['chesstable_css']) $GLOBALS['TL_CSS'][] = 'bundles/contaochesstable/default.css';
 
 		return;
 
@@ -273,7 +331,7 @@ class Chesstable extends \ContentElement
 				}
 			}
 		}
-		return $newArray;
+		return (array)$newArray;
 	}
 
 	protected function kleinschreibung($wert)
@@ -611,4 +669,3 @@ class Chesstable extends \ContentElement
 		[ 'name' => 'Zypern', 'alpha2' => 'CY', 'alpha3' => 'CYP', 'numeric' => '196', 'tld' => '.cy', 'ioc' => 'CYP' ]
 	];
 }
-?>

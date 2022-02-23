@@ -1,5 +1,4 @@
 <?php
-	$GLOBALS['TL_CSS'][] = 'bundles/contaochesstable/default.css';
 	$GLOBALS['TL_JQUERY'][] = '<script type="text/javascript" src="bundles/contaochesstable/lightbox.js"></script>';
 ?>
 

@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 /**
  * Contao Open Source CMS
@@ -35,3 +35,19 @@ $GLOBALS['TL_CONFIG']['chesstable_ratingfelder'] = 'Elo,DWZ,BWZ,DWZ-Schnitt,Schn
 $GLOBALS['TL_CONFIG']['chesstable_ergebnisfelder'] = '0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40';
 $GLOBALS['TL_CONFIG']['chesstable_farbfelder'] = 'F';
 $GLOBALS['TL_CONFIG']['chesstable_steuerfelder'] = 'Q';
+$GLOBALS['TL_CONFIG']['chesstable_css'] = 1;
+
+$chesstable_markColors = array
+(
+	array('intern' => 'up', 'name' => 'Aufsteiger', 'color' => 'abffa9'),
+	array('intern' => 'down', 'name' => 'Absteiger', 'color' => 'ffb7b7'),
+	array('intern' => 'high', 'name' => 'Sonstige Zeilen', 'color' => 'ffff00'),
+);
+$GLOBALS['TL_CONFIG']['chesstable_markColors'] = serialize($chesstable_markColors);
+
+/**
+ * -------------------------------------------------------------------------
+ * Eigener inputType
+ * -------------------------------------------------------------------------
+ */
+$GLOBALS['BE_FFL']['chesstableColors'] = 'Schachbulle\ContaoChesstableBundle\Widgets\ChesstableColors';
