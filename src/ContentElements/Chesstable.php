@@ -59,7 +59,7 @@ class Chesstable extends \ContentElement
 		$flagge = $this->chesstable_flaggen;
 
 		// Farbliche Zeilenmarkierungen auflösen
-		$temp = unserialize($this->chesstable_markierungen);
+		$temp = (array)unserialize($this->chesstable_markierungen);
 		foreach($temp as $item)
 		{
 			// Werte wie z.B. "1-5,7,10-12" weiter auflösen in "1,2,3,4,5,7,10,11,12"

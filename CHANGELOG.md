@@ -1,5 +1,11 @@
 # Schachtabelle Changelog
 
+## Version 3.0.1 (2022-02-24)
+
+* Fix: Warning: Invalid argument supplied for foreach() - wenn tl_content.chesstable_markierungen leer ist
+* Fix: Warning: Invalid argument supplied for foreach() - im Widget, wenn noch keine System-Einstellungen gesetzt sind
+* Fix: Widget ChesstableColors: Wenn tl_content.chesstable_markierungen keinen key hat, darf kein Eingabefeld gezeigt werden
+
 ## Version 3.0.0 (2022-02-23)
 
 * Change: Abhängigkeit components/flag-icon-css von ^3.3 auf ^3.5

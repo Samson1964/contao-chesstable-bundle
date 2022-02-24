@@ -38,9 +38,9 @@ class ChesstableColors extends \Widget
 	{
 
 		// Voreinstellungen laden
-		$configColors = unserialize($GLOBALS['TL_CONFIG']['chesstable_markColors']);
+		$configColors = (array)unserialize($GLOBALS['TL_CONFIG']['chesstable_markColors']);
 		// Daten aus dem Inhaltselement laden
-		$configRows = is_array($this->varValue) ? $this->varValue : unserialize($this->varValue);
+		$configRows = is_array($this->varValue) ? $this->varValue : (array)unserialize($this->varValue);
 		//$configRows = $this->varValue;
 
 		// Daten aus Einstellungen in Ausgabe-Array übertragen
@@ -91,15 +91,18 @@ class ChesstableColors extends \Widget
 		$content .= '</div>';
 		foreach($ausgabe as $key => $value)
 		{
-			$content .= '<div>';
-			$content .= '<input type="hidden" name="'.$this->strName.'['.$row.'][intern]" value="'.$key.'">';
-			if($ausgabe[$key]['defined']) $content .= '<span style="display:inline-block; width:15%; font-weight:bold;">'.$ausgabe[$key]['name'].'</span>';
-			else $content .= '<span style="display:inline-block; width:15%; font-weight:bold; color:red;">'.$ausgabe[$key]['name'].'</span>';
-			$content .= '<span style="display:inline-block; width:15%; margin-right:10px; background-color:'.$ausgabe[$key]['color'].'">&nbsp;</span>';
-			$content .= '<input type="text" name="'.$this->strName.'['.$row.'][rows]" id="ctrl_'.$this->strName.'_'.$key.'" class="tl_text" style="width:32%; margin-right:5px;" value="'.$ausgabe[$key]['rows'].'" onfocus="Backend.getScrollOffset()">';
-			$content .= '<input type="text" name="'.$this->strName.'['.$row.'][flags]" id="ctrl_'.$this->strName.'_'.$key.'" class="tl_text" style="width:32%" value="'.$ausgabe[$key]['flags'].'" onfocus="Backend.getScrollOffset()">';
-			$content .= '</div>';
-			$row++;
+			if($key)
+			{
+				$content .= '<div>';
+				$content .= '<input type="hidden" name="'.$this->strName.'['.$row.'][intern]" value="'.$key.'">';
+				if($ausgabe[$key]['defined']) $content .= '<span style="display:inline-block; width:15%; font-weight:bold;">'.$ausgabe[$key]['name'].'</span>';
+				else $content .= '<span style="display:inline-block; width:15%; font-weight:bold; color:red;">'.$ausgabe[$key]['name'].'</span>';
+				$content .= '<span style="display:inline-block; width:15%; margin-right:10px; background-color:'.$ausgabe[$key]['color'].'">&nbsp;</span>';
+				$content .= '<input type="text" name="'.$this->strName.'['.$row.'][rows]" id="ctrl_'.$this->strName.'_'.$key.'" class="tl_text" style="width:32%; margin-right:5px;" value="'.$ausgabe[$key]['rows'].'" onfocus="Backend.getScrollOffset()">';
+				$content .= '<input type="text" name="'.$this->strName.'['.$row.'][flags]" id="ctrl_'.$this->strName.'_'.$key.'" class="tl_text" style="width:32%" value="'.$ausgabe[$key]['flags'].'" onfocus="Backend.getScrollOffset()">';
+				$content .= '</div>';
+				$row++;
+			}
 		}
 		return $content;
 
