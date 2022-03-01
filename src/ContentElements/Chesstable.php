@@ -389,14 +389,29 @@ class Chesstable extends \ContentElement
 		$ioc = trim(strtoupper($ioc));
 		if(!$ioc) return '';
 
+		$flagge = '';
+		// Flagge in IOC-Code suchen
 		foreach($this->countries as $country)
 		{
 			if($country['ioc'] == $ioc)
 			{
-				return 'flag-icon flag-icon-'.strtolower($country['alpha2']);
+				$flagge = 'flag-icon flag-icon-'.strtolower($country['alpha2']);
 			}
 		}
-		return '';
+
+		// Flagge in Alpha3-Code suchen, wenn in IOC-Code nicht gefunden
+		if(!$flagge)
+		{
+			foreach($this->countries as $country)
+			{
+				if($country['alpha3'] == $ioc)
+				{
+					$flagge = 'flag-icon flag-icon-'.strtolower($country['alpha2']);
+				}
+			}
+		}
+
+		return $flagge;
 	}
 
 	private $countries = 
@@ -666,6 +681,11 @@ class Chesstable extends \ContentElement
 		[ 'name' => 'Westsahara', 'alpha2' => 'EH', 'alpha3' => 'ESH', 'numeric' => '732', 'tld' => '.eh', 'ioc' => '' ],
 		[ 'name' => 'Zaire', 'alpha2' => 'ZR', 'alpha3' => 'ZAR', 'numeric' => '180', 'tld' => '', 'ioc' => '' ],
 		[ 'name' => 'Zentralafrikanische Republik', 'alpha2' => 'CF', 'alpha3' => 'CAF', 'numeric' => '140', 'tld' => '.cf', 'ioc' => 'CAF' ],
-		[ 'name' => 'Zypern', 'alpha2' => 'CY', 'alpha3' => 'CYP', 'numeric' => '196', 'tld' => '.cy', 'ioc' => 'CYP' ]
+		[ 'name' => 'Zypern', 'alpha2' => 'CY', 'alpha3' => 'CYP', 'numeric' => '196', 'tld' => '.cy', 'ioc' => 'CYP' ],
+		// weitere Länder, abgeleitet von Großbritannien
+		[ 'name' => 'Schottland', 'alpha2' => 'GB-SCT', 'alpha3' => 'SCT', 'numeric' => '826', 'tld' => '.uk', 'ioc' => 'SCO' ],
+		[ 'name' => 'England', 'alpha2' => 'GB-ENG', 'alpha3' => 'GBR', 'numeric' => '826', 'tld' => '.uk', 'ioc' => 'ENG' ],
+		[ 'name' => 'Nordirland', 'alpha2' => 'GB-NIR', 'alpha3' => 'NIR', 'numeric' => '826', 'tld' => '.uk', 'ioc' => 'NIR' ],
+		[ 'name' => 'Wales', 'alpha2' => 'GB-WLS', 'alpha3' => 'WLS', 'numeric' => '826', 'tld' => '.uk', 'ioc' => 'WAL' ],
 	];
 }
