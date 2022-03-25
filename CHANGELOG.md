@@ -1,5 +1,9 @@
 # Schachtabelle Changelog
 
+## Version 3.0.3 (2022-03-25)
+
+* Fix: Palette an Core (tl_content) angepaßt
+
 ## Version 3.0.2 (2022-03-01)
 
 * Fix: IRN-Flagge wird nicht erkannt (Flagge zusätzlich in Alpha3-Code suchen, wenn in IOC-Code nicht gefunden)
