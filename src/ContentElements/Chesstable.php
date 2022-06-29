@@ -64,7 +64,7 @@ class Chesstable extends \ContentElement
 		{
 			// Werte wie z.B. "1-5,7,10-12" weiter auflösen in "1,2,3,4,5,7,10,11,12"
 			$markierung[$item['intern']]['rows'] = $this->ArrayAufloesen(explode(",", $item['rows']));
-			$markierung[$item['intern']]['flags'] = explode(",", $item['flags']); // Länderkürzel z.B. "GER,USA" in Array umwandeln
+			if($item['flags']) $markierung[$item['intern']]['flags'] = explode(",", $item['flags']); // Länderkürzel z.B. "GER,USA" in Array umwandeln
 		}
 
 		// Fett- und Kursivmarkierungen auflösen
@@ -160,6 +160,11 @@ class Chesstable extends \ContentElement
 				}
 			}
 
+			//echo "<pre>";
+			//print_r($tabelle[$x]);
+			//echo count($tabelle[$x]);
+			//echo "</pre>";      
+
 			// Ist ein Befehl in Spalte 1?
 			if($tabelle[$x][0] == '~')
 			{
@@ -178,6 +183,18 @@ class Chesstable extends \ContentElement
 				$content .= "</tr>\n";   
 				continue;
 			}
+			elseif($tabelle[$x][0] == '' && count($tabelle[$x]) == 1)
+			{
+				// Leerzeile gefunden
+				$content .= "<tr class=\"leerzeile\">\n";   
+				for($col = 1; $col <= $spaltenzahl; $col++)
+				{
+					$content .= "  <td style=\"text-align:center;\">...</td>\n";
+				} 
+				//$content .= "  <td colspan=\"" . $spaltenzahl . "\">...</td>\n";
+				$content .= "</tr>\n";
+				continue;
+			}
 			
 			$strZeile = ''; // Neue Zeile initialisieren
 			// Jetzt Spalten durchlaufen
@@ -185,7 +202,7 @@ class Chesstable extends \ContentElement
 			{
 				$sp = $y+1; // Spaltennummer ab 1 statt 0
 				$wert = $tabelle[$x][$y]; // Wert aus Tabelle zuweisen
-				$ownclass = $eigenklasse[$x][$y]; // Klasse aus Tabelle zuweisen
+				$ownclass = $eigenklasse[$x][$y]; // Klasse aus Tabelle zuweisen    
 				
 				// Zeilenart td oder th einstellen
 				if($ze == 1 || $kopfzeile) 
@@ -195,6 +212,8 @@ class Chesstable extends \ContentElement
 				else $td = "td"; // th statt td in Zeile 1
 				
 				$klasse = $klassen[$spaltenart[$sp]]; // CSS-Klasse für Spaltenart
+				if($klasse == 'place' && $sp > 1) $klasse = ''; // place-Klasse entfernen, wenn nicht Spalte 1
+				
 				// Name drehen, wenn gefordert
 				if($namendrehen && $klasse == "name" && $ze > 1)
 				{

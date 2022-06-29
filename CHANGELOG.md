@@ -1,5 +1,12 @@
 # Schachtabelle Changelog
 
+## Version 3.0.4 (2022-06-29)
+
+* Fix: Wenn kein Land angegeben ist, wird die Zeile trotzdem farblich markiert.
+* Fix: Leerzeile wird rot markiert
+* Add: Leerzeile in den CSV-Daten erzeugt eine Tabellen-Leerzeile mit der Anzahl definierter Spalten 
+* Fix: Fettschreibung von Brett, Platz oder Nummer nur, wenn 1. Spalte
+
 ## Version 3.0.3 (2022-03-25)
 
 * Fix: Palette an Core (tl_content) angepaßt

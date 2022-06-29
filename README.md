@@ -85,4 +85,8 @@ Auﬂerdem kann in einer eigenen Zeile ein Hinweistext angezeigt werden. Dazu beko
 [TEXT];Das ist ein Text
 ````
 
+### Leerzeilen
+
+Eine leere Zeile in den CSV-Daten erzeugt eine Tabellenzeile mit dem Text "..." in jeder Spalte.
+
 **Frank Hoppe**
