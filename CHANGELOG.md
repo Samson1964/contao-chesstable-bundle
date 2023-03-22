@@ -1,5 +1,9 @@
 # Schachtabelle Changelog
 
+## Version 3.0.5 (2023-03-22)
+
+* Add: Anpassung composer.json an PHP8
+
 ## Version 3.0.4 (2022-06-29)
 
 * Fix: Wenn kein Land angegeben ist, wird die Zeile trotzdem farblich markiert.
