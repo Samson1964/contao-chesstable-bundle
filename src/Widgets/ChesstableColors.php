@@ -58,28 +58,30 @@ class ChesstableColors extends \Widget
 		}
 		
 		// Daten aus Inhaltselement in Ausgabe-Array übertragen
-		foreach($configRows as $item)
+		if(count($configRows) > 0)
 		{
-			if($ausgabe[$item['intern']])
+			foreach($configRows as $item)
 			{
-				// Datensatz ist vorkonfiguriert
-				$ausgabe[$item['intern']]['rows'] = $item['rows'];
-				$ausgabe[$item['intern']]['flags'] = $item['flags'];
-			}
-			else
-			{
-				// Datensatz ist nicht vorkonfiguriert
-				$ausgabe[$item['intern']] = array
-				(
-					'name'    => $item['intern'],
-					'color'   => '',
-					'rows'    => $item['rows'],
-					'flags'   => $item['flags'],
-					'defined' => false,
-				);
+				if($ausgabe[$item['intern']])
+				{
+					// Datensatz ist vorkonfiguriert
+					$ausgabe[$item['intern']]['rows'] = $item['rows'];
+					$ausgabe[$item['intern']]['flags'] = $item['flags'];
+				}
+				else
+				{
+					// Datensatz ist nicht vorkonfiguriert
+					$ausgabe[$item['intern']] = array
+					(
+						'name'    => $item['intern'],
+						'color'   => '',
+						'rows'    => $item['rows'],
+						'flags'   => $item['flags'],
+						'defined' => false,
+					);
+				}
 			}
 		}
-		
 		
 		$content = '';
 		$row = 0;

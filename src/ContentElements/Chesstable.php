@@ -99,7 +99,7 @@ class Chesstable extends \ContentElement
 		$zeile = explode("\n",$csv); // Zeilen trennen
 		for($x=0;$x<count($zeile);$x++)
 		{
-			$spalte = explode(";",$zeile[$x]); // Spalten trennen
+			$spalte = explode(';',html_entity_decode($zeile[$x])); // Spalten trennen, vorher HTML-Entities umwandeln
 			for($y=0;$y<count($spalte);$y++)
 			{
 				$temp = trim($spalte[$y]); // Feldinhalt trimmen
@@ -211,7 +211,7 @@ class Chesstable extends \ContentElement
 				}
 				else $td = "td"; // th statt td in Zeile 1
 				
-				$klasse = $klassen[$spaltenart[$sp]]; // CSS-Klasse für Spaltenart
+				if(isset($spaltenart[$sp])) $klasse =  $klassen[$spaltenart[$sp]]; // CSS-Klasse für Spaltenart
 				if($klasse == 'place' && $sp > 1) $klasse = ''; // place-Klasse entfernen, wenn nicht Spalte 1
 				
 				// Name drehen, wenn gefordert
@@ -221,9 +221,9 @@ class Chesstable extends \ContentElement
 				}
 				if(in_array(strtolower($wert),$blindfelder))
 					$strZeile .= "<$td class=\"row$ze col$sp blindfield $klasse$ownclass\">".$wert."</$td>\n";
-				else if($klasse == "control") // Spalte 'control' nicht anzeigen
+				elseif($klasse == "control") // Spalte 'control' nicht anzeigen
 					$strZeile .= "";
-				else if($td == "td" && $klasse == "nation") // wenn Spalte 'nation'
+				elseif($td == "td" && $klasse == "nation") // wenn Spalte 'nation'
 				{
 					if($flagge) // Flaggen anzeigen ist aktiviert
 					{
@@ -266,6 +266,7 @@ class Chesstable extends \ContentElement
 				else
 				{
 					// Bei Ergebnisspalten Weiß und Schwarz feststellen und CSS-Klasse festlegen
+					$boardcolor = '';
 					if($klasse == 'result')
 					{
 						if(stristr($wert, 'w') == true) $boardcolor = ' white';
@@ -344,9 +345,12 @@ class Chesstable extends \ContentElement
 			{
 				// String in der Form "Zahl-Zahl" auflösen
 				$temp = explode("-", $item);
-				for($x = $temp[0]; $x <= $temp[1]; $x++)
+				if(count($temp) > 1)
 				{
-					$newArray[] = $x;
+					for($x = $temp[0]; $x <= $temp[1]; $x++)
+					{
+						$newArray[] = $x;
+					}
 				}
 			}
 		}

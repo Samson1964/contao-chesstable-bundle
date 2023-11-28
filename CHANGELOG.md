@@ -1,5 +1,12 @@
 # Schachtabelle Changelog
 
+## Version 3.0.6 (2023-11-28)
+
+* Fix: Warning: Trying to access array offset on value of type bool (wenn Farben noch nicht angelegt sind in System-Einstellungen)
+* Fix: Chesstable-Klasse -> diverse Warnungen wegen nichtdefinierter Variablen
+* Fix: Problem bei = in einer Ergebniszelle -> zusätzliche Leerzelle wird rechts daneben erzeugt -> Statt = stand &61; in der Datenbank
+* Fix: Erwin L'Ami wird am Apostroph getrennt -> sh. vorheriges Problem -> html_entity_decode vor Verarbeitung des Strings mit explode
+
 ## Version 3.0.5 (2023-03-22)
 
 * Add: Anpassung composer.json an PHP8
