@@ -1,5 +1,10 @@
 # Schachtabelle Changelog
 
+## Version 3.0.7 (2024-05-28)
+
+* Fix: Warning: Trying to access array offset on value of type bool in ContentElements/Chesstable.php (line 66) 
+* Fix: Warning: Trying to access array offset on value of type bool in Widgets/ChesstableColors.php (line 65)
+
 ## Version 3.0.6 (2023-11-28)
 
 * Fix: Warning: Trying to access array offset on value of type bool (wenn Farben noch nicht angelegt sind in System-Einstellungen)

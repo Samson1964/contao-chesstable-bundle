@@ -40,7 +40,7 @@ class ChesstableColors extends \Widget
 		// Voreinstellungen laden
 		$configColors = (array)unserialize($GLOBALS['TL_CONFIG']['chesstable_markColors']);
 		// Daten aus dem Inhaltselement laden
-		$configRows = is_array($this->varValue) ? $this->varValue : (array)unserialize($this->varValue);
+		$configRows = (array)unserialize($this->varValue);
 		//$configRows = $this->varValue;
 
 		// Daten aus Einstellungen in Ausgabe-Array übertragen
@@ -58,27 +58,30 @@ class ChesstableColors extends \Widget
 		}
 		
 		// Daten aus Inhaltselement in Ausgabe-Array übertragen
-		if(count($configRows) > 0)
+		if(isset($configRows))
 		{
 			foreach($configRows as $item)
 			{
-				if($ausgabe[$item['intern']])
+				if($item)
 				{
-					// Datensatz ist vorkonfiguriert
-					$ausgabe[$item['intern']]['rows'] = $item['rows'];
-					$ausgabe[$item['intern']]['flags'] = $item['flags'];
-				}
-				else
-				{
-					// Datensatz ist nicht vorkonfiguriert
-					$ausgabe[$item['intern']] = array
-					(
-						'name'    => $item['intern'],
-						'color'   => '',
-						'rows'    => $item['rows'],
-						'flags'   => $item['flags'],
-						'defined' => false,
-					);
+					if($ausgabe[$item['intern']])
+					{
+						// Datensatz ist vorkonfiguriert
+						$ausgabe[$item['intern']]['rows'] = $item['rows'];
+						$ausgabe[$item['intern']]['flags'] = $item['flags'];
+					}
+					else
+					{
+						// Datensatz ist nicht vorkonfiguriert
+						$ausgabe[$item['intern']] = array
+						(
+							'name'    => $item['intern'],
+							'color'   => '',
+							'rows'    => $item['rows'],
+							'flags'   => $item['flags'],
+							'defined' => false,
+						);
+					}
 				}
 			}
 		}

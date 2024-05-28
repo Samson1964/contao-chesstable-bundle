@@ -62,9 +62,15 @@ class Chesstable extends \ContentElement
 		$temp = (array)unserialize($this->chesstable_markierungen);
 		foreach($temp as $item)
 		{
-			// Werte wie z.B. "1-5,7,10-12" weiter auflösen in "1,2,3,4,5,7,10,11,12"
-			$markierung[$item['intern']]['rows'] = $this->ArrayAufloesen(explode(",", $item['rows']));
-			if($item['flags']) $markierung[$item['intern']]['flags'] = explode(",", $item['flags']); // Länderkürzel z.B. "GER,USA" in Array umwandeln
+			if(isset($item['rows']))
+			{
+				// Werte wie z.B. "1-5,7,10-12" weiter auflösen in "1,2,3,4,5,7,10,11,12"
+				$markierung[$item['intern']]['rows'] = $this->ArrayAufloesen(explode(",", $item['rows']));
+			}
+			if(isset($item['flags']))  
+			{
+				$markierung[$item['intern']]['flags'] = explode(",", $item['flags']); // Länderkürzel z.B. "GER,USA" in Array umwandeln
+			}
 		}
 
 		// Fett- und Kursivmarkierungen auflösen
