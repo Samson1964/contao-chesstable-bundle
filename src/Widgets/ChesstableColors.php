@@ -40,7 +40,7 @@ class ChesstableColors extends \Widget
 		// Voreinstellungen laden
 		$configColors = (array)unserialize($GLOBALS['TL_CONFIG']['chesstable_markColors']);
 		// Daten aus dem Inhaltselement laden
-		$configRows = (array)unserialize($this->varValue);
+		$configRows = is_array($this->varValue) ? $this->varValue : (array)unserialize($this->varValue);
 		//$configRows = $this->varValue;
 
 		// Daten aus Einstellungen in Ausgabe-Array übertragen

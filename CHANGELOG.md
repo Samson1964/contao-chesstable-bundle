@@ -1,5 +1,9 @@
 # Schachtabelle Changelog
 
+## Version 3.0.8 (2024-06-07)
+
+* Fix: unserialize(): Argument #1 ($data) must be of type string, array given in Widgets/ChesstableColors.php (line 43) 
+
 ## Version 3.0.7 (2024-05-28)
 
 * Fix: Warning: Trying to access array offset on value of type bool in ContentElements/Chesstable.php (line 66) 
