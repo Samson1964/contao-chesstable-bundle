@@ -12,6 +12,7 @@
  */
 
 $GLOBALS['TL_LANG']['tl_content']['chesstable_csv'] = array('CSV-Daten', 'Hier tragen Sie die kommaseparierten Daten ein. Die Spalten müssen mit einem Semikolon getrennt sein.');
+$GLOBALS['TL_LANG']['tl_content']['chesstable_autoNumber'] = array('Automatische Nummerierung', 'Als 1. Spalte wird eine Spalte "Nr." mit automatischer Nummerierung hinzugefügt.');
 $GLOBALS['TL_LANG']['tl_content']['chesstable_file'] = array('Oder alternative Datei einbinden', 'Wählen Sie eine CSV-Datei aus');
 $GLOBALS['TL_LANG']['tl_content']['chesstable_markBold'] = array('Zeilen fett markieren', 'Tragen Sie hier die Zeilennummern der fett zu markierenden Texte mit Komma und Bindestrich getrennt ein. Bsp.: 1,3-5,11. Orientieren Sie sich dabei an den Zeilennummern der Textarea!');
 $GLOBALS['TL_LANG']['tl_content']['chesstable_markItalic'] = array('Zeilen kursiv markieren', 'Tragen Sie hier die Zeilennummern der kursiv zu markierenden Texte mit Komma und Bindestrich getrennt ein. Bsp.: 1,3-5,11. Orientieren Sie sich dabei an den Zeilennummern der Textarea!');

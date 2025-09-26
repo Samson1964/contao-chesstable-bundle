@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
 
 $GLOBALS['TL_LANG']['XPL']['chesstable_csv'] = array
 (
@@ -38,5 +38,3 @@ $GLOBALS['TL_LANG']['XPL']['chesstable_markieren2'] = array
 	array('Anzahl Seiten pro Aufruf', 'Mit dieser Einstellung können Sie dem DSI sagen, wie viele Seiten er pro Aufruf abarbeiten soll. Beachten Sie: Egal was Sie einstellen, der DSI wird <strong>immer</strong> stündlich den nächsten Satz von Seiten abarbeiten.'),
 	array('Neuaufbau-Frequenz', 'Diese Einstellung steht <strong>nicht</strong> in Relation zu "Anzahl Seiten pro Aufruf"! Sie bestimmt lediglich, wie häufig der DSI Ihren <strong>ganzen</strong> Suchindex neu indexieren soll. Stellen Sie hier z.B. "täglich" ein und der DSI ist noch nicht fertig mit dem Abarbeiten des vorherigen Stacks (weil z.B. 5000 Seiten vorhanden sind und Sie eingestellt haben, er soll immer nur 100 pro Aufruf nehmen [5000/100 = 50 Aufrufe = ~50h]), so wird er einfach den vorherigen Job zu Ende bringen und dann den nächsten anfangen.')
 );
-
-?>

@@ -1,5 +1,10 @@
 # Schachtabelle Changelog
 
+## Version 3.1.0 (2025-09-26)
+
+* Fix: Nicht vorhandenes Hilfe-Popup bei chesstable_namendrehen entfernt
+* Add: chesstable_autonumber -> automatische Nummerierung aktivieren: es wird eine Nr.-Spalte vorn hinzugefügt
+
 ## Version 3.0.8 (2024-06-07)
 
 * Fix: unserialize(): Argument #1 ($data) must be of type string, array given in Widgets/ChesstableColors.php (line 43) 

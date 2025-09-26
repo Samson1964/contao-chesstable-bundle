@@ -133,6 +133,30 @@ class Chesstable extends \ContentElement
 		//print_r($tabelle);
 		//echo "<pre>";
 		
+		// Nummer-Spalte vorn hinzufügen, wenn automatische Nummerierung aktiv ist
+		if($this->chesstable_autoNumber)
+		{
+			$neutabelle = array();
+			// Zuerst Zeilen durchlaufen
+			for($row=0;$row<count($tabelle);$row++)
+			{
+				if($row==0)
+				{
+					// 1. Zeile, Text "Nr." als erste Spalte einfügen
+					$neutabelle[$row][0] = 'Nr.';
+				}
+				for($col=0;$col<count($tabelle[$row]);$col++)
+				{
+					if($row>0 && $col == 0)
+					{
+						$neutabelle[$row][0] = $row; // Zeilennummer einfügen
+					}
+					$neutabelle[$row][$col+1] = $tabelle[$row][$col]; // Restliche Spalten um +1 verschieben
+				}
+			}
+			$tabelle = $neutabelle;
+		}
+		
 		// Tabelle generieren
 		$content = "<table class=\"chesstable\">\n";
 		// Zuerst Zeilen durchlaufen
@@ -208,7 +232,7 @@ class Chesstable extends \ContentElement
 			{
 				$sp = $y+1; // Spaltennummer ab 1 statt 0
 				$wert = $tabelle[$x][$y]; // Wert aus Tabelle zuweisen
-				$ownclass = $eigenklasse[$x][$y]; // Klasse aus Tabelle zuweisen    
+				$ownclass = @$eigenklasse[$x][$y]; // Klasse aus Tabelle zuweisen    
 				
 				// Zeilenart td oder th einstellen
 				if($ze == 1 || $kopfzeile) 
