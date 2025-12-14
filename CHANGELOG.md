@@ -1,5 +1,9 @@
 # Schachtabelle Changelog
 
+## Version 4.0.1 (2025-12-14)
+
+* Change: tl_content -> extends \Backend statt Backend
+
 ## Version 4.0.0 (2025-12-14)
 
 * Add: Kompatibilität mit Contao ^5.3
