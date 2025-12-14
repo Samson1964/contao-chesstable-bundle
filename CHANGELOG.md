@@ -1,5 +1,9 @@
 # Schachtabelle Changelog
 
+## Version 4.0.0 (2025-12-14)
+
+* Add: Kompatibilität mit Contao ^5.3
+
 ## Version 3.1.0 (2025-09-26)
 
 * Fix: Nicht vorhandenes Hilfe-Popup bei chesstable_namendrehen entfernt
