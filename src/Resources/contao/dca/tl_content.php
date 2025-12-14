@@ -226,7 +226,7 @@ foreach($chesstable_markColors as $item)
 //
 
 
-class tl_content_chesstable extends \Backend
+class tl_content_chesstable extends \Contao\Backend
 {
 
 	public function jshinweis(DataContainer $dc)
