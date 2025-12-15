@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php 
 
 /**
  * Contao Open Source CMS
@@ -11,8 +11,5 @@
  * @copyright Frank Hoppe 2013
  */
 
-$GLOBALS['TL_LANG']['CTE']['schach'] = "Schach-Elemente";
-$GLOBALS['TL_LANG']['CTE']['chesstable']['0'] = "Schachtabelle";
-$GLOBALS['TL_LANG']['CTE']['chesstable']['1'] = "CSV-Daten als Schachtabelle ausgeben";
-
-?>
+$GLOBALS['TL_LANG']['CTE']['schach'] = 'Schach-Elemente';
+$GLOBALS['TL_LANG']['CTE']['chesstable'] = array('Schachtabelle', 'CSV-Daten als Schachtabelle ausgeben');

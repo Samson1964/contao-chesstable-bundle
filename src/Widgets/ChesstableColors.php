@@ -2,7 +2,7 @@
 
 namespace Schachbulle\ContaoChesstableBundle\Widgets;
 
-class ChesstableColors extends \Widget
+class ChesstableColors extends \Contao\Widget
 {
 	// Anleitung: https://alexandernaumov.de/artikel/contao-backend-widget
 

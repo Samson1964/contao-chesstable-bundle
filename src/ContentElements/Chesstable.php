@@ -14,7 +14,7 @@
 
 namespace Schachbulle\ContaoChesstableBundle\ContentElements;
 
-class Chesstable extends \ContentElement
+class Chesstable extends \Contao\ContentElement
 {
 
 	/**
@@ -35,7 +35,7 @@ class Chesstable extends \ContentElement
 		//echo "ID=".$objPage->id;
 
 		// Symlink für das externe Bundle components/flag-icon-css erstellen, wenn noch nicht vorhanden
-		if(!is_link(TL_ROOT.'/web/bundles/flag-icon-css')) symlink(TL_ROOT.'/vendor/components/flag-icon-css/', TL_ROOT.'/web/bundles/flag-icon-css'); // Ziel, Name
+		if(!is_link(\Contao\System::getContainer()->getParameter('kernel.project_dir').'/public/bundles/flag-icon-css')) symlink(\Contao\System::getContainer()->getParameter('kernel.project_dir').'/vendor/components/flag-icon-css/', \Contao\System::getContainer()->getParameter('kernel.project_dir').'/public/bundles/flag-icon-css'); // Ziel, Name
 
 		// Farben aus System-Einstellungen laden
 		$markierung = array();
@@ -159,6 +159,7 @@ class Chesstable extends \ContentElement
 		
 		// Tabelle generieren
 		$content = "<table class=\"chesstable\">\n";
+		$spaltenzahl = 0;
 		// Zuerst Zeilen durchlaufen
 		for($x=0;$x<count($tabelle);$x++)
 		{
@@ -305,7 +306,7 @@ class Chesstable extends \ContentElement
 					}
 					$strZeile .= "<$td class=\"row$ze col$sp $klasse$ownclass$boardcolor\">".$wert."</$td>\n";
 				}
-				$wert = \Controller::replaceInsertTags($wert); // Inserttags ersetzen
+				$wert = \Contao\System::getContainer()->get('contao.insert_tag.parser')->replace($wert); // Inserttags ersetzen
 			}
 
 			// Zeile fett?
@@ -327,7 +328,7 @@ class Chesstable extends \ContentElement
 		if($lightbox)
 		{
 			// Template ausgeben
-			$this->Template = new \FrontendTemplate($this->strTemplateLightbox);
+			$this->Template = new \Contao\FrontendTemplate($this->strTemplateLightbox);
 			$this->Template->id = $this->id;
 			$this->Template->linktext = $linktext;
 			$this->Template->class = "ce_chesstable";
@@ -339,7 +340,7 @@ class Chesstable extends \ContentElement
 		else
 		{
 			// Template ausgeben
-			$this->Template = new \FrontendTemplate($this->strTemplate);
+			$this->Template = new \Contao\FrontendTemplate($this->strTemplate);
 			$this->Template->class = "ce_chesstable";
 			$this->Template->tabelle = $content;
 			$this->Template->datum = $aktdatum;

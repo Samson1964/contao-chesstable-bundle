@@ -1,5 +1,19 @@
 # Schachtabelle Changelog
 
+## Version 4.1.0 (2025-12-15)
+
+Contao-5-spezifische Fehler
+* Fix: Class "Widget" not found -> aus extends \Widget wird extends \Contao\Widget
+* Fix: Class "ContentElement" not found -> aus extends \ContentElement wird extends \Contao\ContentElement
+* Fix: Undefined constant "ContentElements\TL_ROOT" -> aus TL_ROOT wird \System::getContainer()->getParameter('kernel.project_dir')
+* Fix: "You cannot access this file directly!" aus den (Sprach-)Dateien entfernt -> nicht mehr kompatibel mit Contao 5
+* Fix: Aus Ordner web wird public
+* Fix: Attempted to call an undefined method named "replaceInsertTags" of class "Contao\Controller" in /src/ContentElements/Chesstable.php (line 309) -> \Contao\Controller::replaceInsertTags ersetzt durch \Contao\System::getContainer()->get('contao.insert_tag.parser')->replace
+* Fix: tl_content_chesstable::jshinweis(): Argument #1 ($dc) must be of type DataContainer, Contao\DC_Table given, called in 
+Sonstige Fehler:
+* Fix: Warning: Undefined variable $spaltenzahl in src/ContentElements/Chesstable.php (line 220) 
+* Change: Abhängigkeit auf PHP 8 und Contao 5 gesetzt
+
 ## Version 4.0.2 (2025-12-14)
 
 * Change: tl_content -> extends \Contao\Backend statt \Backend

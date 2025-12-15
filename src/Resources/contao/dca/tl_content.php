@@ -229,7 +229,7 @@ foreach($chesstable_markColors as $item)
 class tl_content_chesstable extends \Contao\Backend
 {
 
-	public function jshinweis(DataContainer $dc)
+	public function jshinweis(\Contao\DataContainer $dc)
 	{
 		return '<div class="tl_message clr">
 			<p class="tl_info">'.sprintf($GLOBALS['TL_LANG']['tl_content']['includeTemplate'], 'j_colorbox').'</p>
