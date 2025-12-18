@@ -1,5 +1,9 @@
 # Schachtabelle Changelog
 
+## Version 4.1.1 (2025-12-18)
+
+* Add: composer.json "symfony/dependency-injection": "^6.4" -> wegen: In ResolveInstanceofConditionalsPass.php line 168: "Symfony\Component\DependencyInjection\ContainerAwareInterface" is set as an "instanceof" conditional, but it does not exist. Siehe auch https://community.contao.org/de/showthread.php?87239-Fehler-nach-Update-von-5-3-auf-5-4&p=587371&viewfull=1#post587371
+
 ## Version 4.1.0 (2025-12-15)
 
 Contao-5-spezifische Fehler
