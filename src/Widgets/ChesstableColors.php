@@ -64,7 +64,7 @@ class ChesstableColors extends \Contao\Widget
 			{
 				if($item)
 				{
-					if($ausgabe[$item['intern']])
+					if(isset($ausgabe[$item['intern']]))
 					{
 						// Datensatz ist vorkonfiguriert
 						$ausgabe[$item['intern']]['rows'] = $item['rows'];

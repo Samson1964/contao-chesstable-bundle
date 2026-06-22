@@ -187,7 +187,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_linktext'] = array
 );
 
 // Palette für die Farbmarkierungen manipulieren - Standardfelder up, down und high entfernen, wenn nicht definiert
-$chesstable_markColors = unserialize($GLOBALS['TL_CONFIG']['chesstable_markColors']);
+$chesstable_markColors = (array)unserialize($GLOBALS['TL_CONFIG']['chesstable_markColors']);
 $up = false; $down = false; $high = false;
 foreach($chesstable_markColors as $item)
 {

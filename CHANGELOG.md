@@ -1,5 +1,13 @@
 # Schachtabelle Changelog
 
+## Version 4.1.2 (2026-06-22) - mit Claude Code
+
+* Fix: composer.json "symfony/dependency-injection" von "^6.4" auf "^6.4 || ^7.0" gelockert -> Voraussetzung für Symfony 7 (Contao ab 5.4/5.5)
+* Fix: services.yml -> nicht mehr benötigten "_instanceof"-Block für "Symfony\Component\DependencyInjection\ContainerAwareInterface" entfernt -> dieses Interface existiert in Symfony 7 nicht mehr und war die eigentliche Ursache für den in 4.1.1 gesetzten Versions-Pin
+* Fix: PHP-8-Warnung "foreach() argument must be of type array|object, bool given" -> unserialize() in Chesstable.php (Zeile 42) und tl_content.php (Zeile 190) mit (array) gecastet
+* Fix: PHP-8-Warnung "Undefined variable $klasse" in Chesstable.php -> Variable wird jetzt in jedem Schleifendurchlauf initialisiert
+* Fix: PHP-8-Warnung "Undefined array key" in Chesstable.php (Fehlerunterdrückung @ durch ?? ersetzt) und ChesstableColors.php (Zeile 67, isset()-Prüfung)
+
 ## Version 4.1.1 (2025-12-18)
 
 * Add: composer.json "symfony/dependency-injection": "^6.4" -> wegen: In ResolveInstanceofConditionalsPass.php line 168: "Symfony\Component\DependencyInjection\ContainerAwareInterface" is set as an "instanceof" conditional, but it does not exist. Siehe auch https://community.contao.org/de/showthread.php?87239-Fehler-nach-Update-von-5-3-auf-5-4&p=587371&viewfull=1#post587371

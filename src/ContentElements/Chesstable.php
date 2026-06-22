@@ -39,7 +39,7 @@ class Chesstable extends \Contao\ContentElement
 
 		// Farben aus System-Einstellungen laden
 		$markierung = array();
-		$temp = unserialize($GLOBALS['TL_CONFIG']['chesstable_markColors']);
+		$temp = (array)unserialize($GLOBALS['TL_CONFIG']['chesstable_markColors']);
 		foreach($temp as $item)
 		{
 			$markierung[$item['intern']] = array
@@ -233,7 +233,7 @@ class Chesstable extends \Contao\ContentElement
 			{
 				$sp = $y+1; // Spaltennummer ab 1 statt 0
 				$wert = $tabelle[$x][$y]; // Wert aus Tabelle zuweisen
-				$ownclass = @$eigenklasse[$x][$y]; // Klasse aus Tabelle zuweisen    
+				$ownclass = $eigenklasse[$x][$y] ?? ''; // Klasse aus Tabelle zuweisen
 				
 				// Zeilenart td oder th einstellen
 				if($ze == 1 || $kopfzeile) 
@@ -242,7 +242,7 @@ class Chesstable extends \Contao\ContentElement
 				}
 				else $td = "td"; // th statt td in Zeile 1
 				
-				if(isset($spaltenart[$sp])) $klasse =  $klassen[$spaltenart[$sp]]; // CSS-Klasse für Spaltenart
+				$klasse = isset($spaltenart[$sp]) ? $klassen[$spaltenart[$sp]] : ''; // CSS-Klasse für Spaltenart
 				if($klasse == 'place' && $sp > 1) $klasse = ''; // place-Klasse entfernen, wenn nicht Spalte 1
 				
 				// Name drehen, wenn gefordert

@@ -1,7 +1,7 @@
 {
     "name": "schachbulle/contao-chesstable-bundle",
     "type": "contao-bundle",
-    "description": "Schachtabellen-Erweiterung für Contao 5",
+    "description": "Schachtabellen-Erweiterung fï¿½r Contao 5",
     "license": "LGPL-3.0-or-later",
     "authors": [
         {
@@ -13,7 +13,7 @@
         "php": "^8",
         "contao/core-bundle": "^5",
         "components/flag-icon-css": "^3.5",
-        "symfony/dependency-injection": "^6.4",
+        "symfony/dependency-injection": "^6.4 || ^7.0",
         "menatwork/contao-multicolumnwizard-bundle": "*"
     },
     "conflict": {
