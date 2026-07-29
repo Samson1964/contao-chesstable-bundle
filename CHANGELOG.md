@@ -134,22 +134,22 @@ Sonstige Fehler:
 
 ## Version 1.3.0 (2016-08-20)
 
-* Neu: Absteiger/Aufsteiger/Sonstige Zeilen jetzt auch von-bis möglich (Bsp. 3-7)
+* Add: Absteiger/Aufsteiger/Sonstige Zeilen jetzt auch von-bis möglich (Bsp. 3-7)
 * Fix: Blindfelder mit Großbuchstaben wurden nicht angezeigt. Groß- und Kleinschreibung ist jetzt egal
-* Neu: Hinweistext hinzugefügt, der unter der Tabelle erscheinen kann
+* Add: Hinweistext hinzugefügt, der unter der Tabelle erscheinen kann
 
 ## Version 1.2.0 (2016-07-27)
 
-* Neu: Turnierendedatum hinzugefügt
+* Add: Turnierendedatum hinzugefügt
 
 ## Version 1.1.3 (2015-06-04)
 
-* Neu: Hilfefunktion beim Inhaltselement
-* Neu: Eigene CSS-Klasse in allen Spalten möglich
+* Add: Hilfefunktion beim Inhaltselement
+* Add: Eigene CSS-Klasse in allen Spalten möglich
 
 ## Version 1.1.2 (2015-05-16)
 
-* Neu: Aktualisierungsdatum der Tabelle kann optional ausgegeben werden.
+* Add: Aktualisierungsdatum der Tabelle kann optional ausgegeben werden.
 
 ## Version 1.1.1 (2014-10-22)
 
