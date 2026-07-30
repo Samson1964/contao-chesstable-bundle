@@ -1,7 +1,15 @@
 {
     "name": "schachbulle/contao-chesstable-bundle",
     "type": "contao-bundle",
-    "description": "Schachtabellen-Erweiterung f�r Contao 5",
+    "description": "Inhaltselement, das aus CSV-Daten mit Semikolon als Trennzeichen eine HTML-Tabelle erzeugt und dabei die Besonderheiten von Schachturniertabellen berücksichtigt.",
+    "keywords": [
+        "contao",
+        "schach",
+        "tabelle",
+        "csv",
+        "turnier"
+    ],
+    "homepage": "https://github.com/Samson1964/contao-chesstable-bundle",
     "license": "LGPL-3.0-or-later",
     "authors": [
         {

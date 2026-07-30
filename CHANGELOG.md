@@ -1,5 +1,9 @@
 # Schachtabelle Changelog
 
+## Version 4.1.3 (2026-07-30)
+
+* Change: Beschreibung, Keywords und Homepage in der composer.json ergänzt, damit Packagist das Paket verständlich darstellt und über die Suche auffindbar macht
+
 ## Version 4.1.2 (2026-06-22) - mit Claude Code
 
 * Fix: composer.json "symfony/dependency-injection" von "^6.4" auf "^6.4 || ^7.0" gelockert -> Voraussetzung für Symfony 7 (Contao ab 5.4/5.5)
