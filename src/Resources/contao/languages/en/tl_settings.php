@@ -1,28 +1,23 @@
 <?php
 
-/**
- * Contao Open Source CMS
- *
- * Copyright (C) 2005-2013 Leo Feyer
- *
- * @package   fen
- * @author    Frank Hoppe
- * @license   GNU/LGPL
- * @copyright Frank Hoppe 2013
- */
+declare(strict_types=1);
 
 /**
- * Name
+ * Englische Beschriftungen der Systemeinstellungen.
+ *
+ * @author    Frank Hoppe
+ * @license   LGPL-3.0-or-later
  */
+
 $GLOBALS['TL_LANG']['tl_settings']['chesstable']              = 'Chess table';
 
-/**
- * legends
+/*
+ * Legenden
  */
 $GLOBALS['TL_LANG']['tl_settings']['chesstable_legend']       = 'Chess table';
 
-/**
- * fields
+/*
+ * Felder
  */
 $GLOBALS['TL_LANG']['tl_settings']['chesstable_blindfelder']= array('Table values ​​for blind fields', 'Separate the values ​​with commas. The uppercase and lowercase do not need to consider.');
 $GLOBALS['TL_LANG']['tl_settings']['chesstable_nationfelder']= array('Column headers for nation fields', 'Separate the values ​​with commas. The uppercase and lowercase do not need to consider.');

@@ -1,27 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * Contao Open Source CMS
+ * Registrierung des Inhaltselements und Voreinstellungen der Schachtabelle.
  *
- * Copyright (C) 2005-2013 Leo Feyer
- *
- * @package   fen
  * @author    Frank Hoppe
- * @license   GNU/LGPL
- * @copyright Frank Hoppe 2013
+ * @license   LGPL-3.0-or-later
  */
 
-/**
- * -------------------------------------------------------------------------
- * CONTENT ELEMENTS
- * -------------------------------------------------------------------------
- */
-$GLOBALS['TL_CTE']['schach']['chesstable'] = 'Schachbulle\ContaoChesstableBundle\ContentElements\Chesstable';
+use Schachbulle\ContaoChesstableBundle\ContentElements\Chesstable;
+use Schachbulle\ContaoChesstableBundle\Widgets\ChesstableColors;
 
-/**
- * -------------------------------------------------------------------------
+/*
+ * Inhaltselement
+ */
+$GLOBALS['TL_CTE']['schach']['chesstable'] = Chesstable::class;
+
+/*
  * Voreinstellungen
- * -------------------------------------------------------------------------
+ *
+ * Sie greifen nur, solange der Administrator die Werte nicht in den
+ * Systemeinstellungen überschrieben hat.
  */
 
 $GLOBALS['TL_CONFIG']['chesstable_blindfelder'] = 'x,xx,*,**,#';
@@ -45,9 +45,7 @@ $chesstable_markColors = array
 );
 $GLOBALS['TL_CONFIG']['chesstable_markColors'] = serialize($chesstable_markColors);
 
-/**
- * -------------------------------------------------------------------------
- * Eigener inputType
- * -------------------------------------------------------------------------
+/*
+ * Eigener inputType für die Eingabe der Farbmarkierungen
  */
-$GLOBALS['BE_FFL']['chesstableColors'] = 'Schachbulle\ContaoChesstableBundle\Widgets\ChesstableColors';
+$GLOBALS['BE_FFL']['chesstableColors'] = ChesstableColors::class;

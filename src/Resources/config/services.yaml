@@ -1,0 +1,9 @@
+# Das Bundle registriert derzeit keine eigenen Dienste: Das Inhaltselement und
+# das Backend-Widget werden über die Contao-Register $GLOBALS['TL_CTE'] und
+# $GLOBALS['BE_FFL'] eingebunden. Die Voreinstellungen gelten für alle Dienste,
+# die hier künftig ergänzt werden.
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false

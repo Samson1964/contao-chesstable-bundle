@@ -1,14 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * Contao Open Source CMS
+ * Englische Beschriftungen des Inhaltselements und der Elementgruppe.
  *
- * Copyright (C) 2005-2013 Leo Feyer
- *
- * @package   fen
  * @author    Frank Hoppe
- * @license   GNU/LGPL
- * @copyright Frank Hoppe 2013
+ * @license   LGPL-3.0-or-later
  */
 
 $GLOBALS['TL_LANG']['CTE']['schach'] = 'Chess-Elements';

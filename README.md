@@ -1,6 +1,13 @@
 # Schachtabelle
 
-Schachtabelle ist ein Inhaltselement für Contao 4, um aus Daten im CSV-Format (mit Semikolon als Trennzeichen) eine HTML-Tabelle zu erstellen. Dabei werden die Eigenschaften einer Tabelle für Schachturniere beachtet, wie z.B. Blindfelder in Kreuztabellen oder Farbangaben bei Ergebnissen. Das Inhaltselement kann natürlich auch für andere Tabellen benutzt werden.
+Schachtabelle ist ein Inhaltselement für Contao 4.13 und Contao 5, um aus Daten im CSV-Format (mit Semikolon als Trennzeichen) eine HTML-Tabelle zu erstellen. Dabei werden die Eigenschaften einer Tabelle für Schachturniere beachtet, wie z.B. Blindfelder in Kreuztabellen oder Farbangaben bei Ergebnissen. Das Inhaltselement kann natürlich auch für andere Tabellen benutzt werden.
+
+## Voraussetzungen
+
+* PHP 8.1 oder neuer
+* Contao 4.13 oder Contao 5
+
+Die Flaggen stammen aus dem Paket `components/flag-icon-css`, das Composer mitinstalliert. Beim ersten Seitenaufruf mit aktivierter Flaggenanzeige verlinkt das Bundle das Verzeichnis nach `public/bundles/flag-icon-css`. Erlaubt der Server keine Symlinks, zeigt die Tabelle statt der Flaggen die Länderkürzel als Text.
 
 ## Kurzanleitung
 
@@ -88,5 +95,13 @@ Außerdem kann in einer eigenen Zeile ein Hinweistext angezeigt werden. Dazu bek
 ### Leerzeilen
 
 Eine leere Zeile in den CSV-Daten erzeugt eine Tabellenzeile mit dem Text "..." in jeder Spalte.
+
+## Entwicklung
+
+Die Umformungen der Redakteurseingaben liegen in `src/Util/` und sind ohne Contao testbar:
+
+```
+vendor/bin/phpunit
+```
 
 **Frank Hoppe**

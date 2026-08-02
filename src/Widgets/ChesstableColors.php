@@ -1,115 +1,149 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Schachbulle\ContaoChesstableBundle\Widgets;
 
-class ChesstableColors extends \Contao\Widget
-{
-	// Anleitung: https://alexandernaumov.de/artikel/contao-backend-widget
+use Contao\Config;
+use Contao\StringUtil;
+use Contao\Widget;
 
+/**
+ * Backend-Widget zur Eingabe der farbig zu markierenden Zeilen und Länder.
+ *
+ * Welche Markierungen es gibt (Aufsteiger, Absteiger, ...) und welche Farbe sie
+ * haben, legt der Administrator einmalig in den Systemeinstellungen fest. Im
+ * Inhaltselement trägt der Redakteur dann nur noch ein, welche Zeilennummern und
+ * welche Länderkürzel zu welcher Markierung gehören. Das Widget zeigt deshalb
+ * eine feste Zeile je konfigurierter Markierung statt einer frei erweiterbaren
+ * Liste.
+ *
+ * Markierungen, die im Datensatz gespeichert sind, in den Einstellungen aber
+ * nicht mehr vorkommen, werden rot und ohne Farbfeld angezeigt. So sieht der
+ * Redakteur, dass die Angabe wirkungslos ist, ohne dass die Daten verlorengehen.
+ */
+class ChesstableColors extends Widget
+{
 	/**
+	 * Der Wert wird beim Speichern des Formulars übernommen.
+	 *
 	 * @var bool
 	 */
 	protected $blnSubmitInput = true;
-	
+
 	/**
 	 * @var string
 	 */
 	protected $strTemplate = 'be_widget';
-	
+
 	/**
-	 * @param mixed $varInput
-	 * @return mixed
+	 * Wandelt die eingegebenen Zeilen vor dem Speichern in einen String um.
+	 *
+	 * Das Feld nimmt die Daten als Array aus dem Formular entgegen, die
+	 * Datenbankspalte ist aber ein varchar. Deshalb wird hier serialisiert,
+	 * bevor die Prüfung der Elternklasse greift.
+	 *
+	 * @param mixed $varInput Das Array der Formularzeilen
+	 *
+	 * @return mixed Der serialisierte Wert, wie ihn die Elternklasse liefert
 	 */
 	protected function validator($varInput)
 	{
-		$varInput = serialize((array)$varInput);
-
-		//echo "hallo|";
-		//print_r($varInput);
-		//echo "|";
-		//exit;
-		return parent::validator($varInput);
+		return parent::validator(serialize((array) $varInput));
 	}
-	
+
 	/**
-	 * @return string
+	 * Erzeugt das Eingabefeld.
+	 *
+	 * @return string Das HTML des Widgets; bei nicht gepflegten Einstellungen
+	 *                nur die Kopfzeile ohne Eingabefelder
 	 */
-	public function generate()
+	public function generate(): string
 	{
+		$zeilen = $this->collectRows();
 
-		// Voreinstellungen laden
-		$configColors = (array)unserialize($GLOBALS['TL_CONFIG']['chesstable_markColors']);
-		// Daten aus dem Inhaltselement laden
-		$configRows = is_array($this->varValue) ? $this->varValue : (array)unserialize($this->varValue);
-		//$configRows = $this->varValue;
-
-		// Daten aus Einstellungen in Ausgabe-Array übertragen
-		$ausgabe = array();
-		foreach($configColors as $item)
-		{
-			$ausgabe[$item['intern']] = array
-			(
-				'name'    => $item['name'],
-				'color'   => '#'.$item['color'],
-				'rows'    => '',
-				'flags'   => '',
-				'defined' => true,
-			);
-		}
-		
-		// Daten aus Inhaltselement in Ausgabe-Array übertragen
-		if(isset($configRows))
-		{
-			foreach($configRows as $item)
-			{
-				if($item)
-				{
-					if(isset($ausgabe[$item['intern']]))
-					{
-						// Datensatz ist vorkonfiguriert
-						$ausgabe[$item['intern']]['rows'] = $item['rows'];
-						$ausgabe[$item['intern']]['flags'] = $item['flags'];
-					}
-					else
-					{
-						// Datensatz ist nicht vorkonfiguriert
-						$ausgabe[$item['intern']] = array
-						(
-							'name'    => $item['intern'],
-							'color'   => '',
-							'rows'    => $item['rows'],
-							'flags'   => $item['flags'],
-							'defined' => false,
-						);
-					}
-				}
-			}
-		}
-		
-		$content = '';
-		$row = 0;
-		$content .= '<div>';
+		$content = '<div>';
 		$content .= '<span style="display:inline-block; width:15%; font-style:italic;">Name</span>';
 		$content .= '<span style="display:inline-block; width:15%; font-style:italic; margin-right:10px;">Farbe</span>';
 		$content .= '<span style="display:inline-block; width:32%; font-style:italic; margin-right:5px;">Zeilennummern</span>';
 		$content .= '<span style="display:inline-block; width:32%; font-style:italic;">Länder</span>';
 		$content .= '</div>';
-		foreach($ausgabe as $key => $value)
-		{
-			if($key)
-			{
-				$content .= '<div>';
-				$content .= '<input type="hidden" name="'.$this->strName.'['.$row.'][intern]" value="'.$key.'">';
-				if($ausgabe[$key]['defined']) $content .= '<span style="display:inline-block; width:15%; font-weight:bold;">'.$ausgabe[$key]['name'].'</span>';
-				else $content .= '<span style="display:inline-block; width:15%; font-weight:bold; color:red;">'.$ausgabe[$key]['name'].'</span>';
-				$content .= '<span style="display:inline-block; width:15%; margin-right:10px; background-color:'.$ausgabe[$key]['color'].'">&nbsp;</span>';
-				$content .= '<input type="text" name="'.$this->strName.'['.$row.'][rows]" id="ctrl_'.$this->strName.'_'.$key.'" class="tl_text" style="width:32%; margin-right:5px;" value="'.$ausgabe[$key]['rows'].'" onfocus="Backend.getScrollOffset()">';
-				$content .= '<input type="text" name="'.$this->strName.'['.$row.'][flags]" id="ctrl_'.$this->strName.'_'.$key.'" class="tl_text" style="width:32%" value="'.$ausgabe[$key]['flags'].'" onfocus="Backend.getScrollOffset()">';
-				$content .= '</div>';
-				$row++;
-			}
-		}
-		return $content;
 
+		$index = 0;
+
+		foreach ($zeilen as $schluessel => $zeile)
+		{
+			$id = $this->strName.'_'.$index;
+			$namensfarbe = $zeile['defined'] ? '' : ' color:red;';
+
+			$content .= '<div>';
+			$content .= '<input type="hidden" name="'.$this->strName.'['.$index.'][intern]" value="'.StringUtil::specialchars($schluessel).'">';
+			$content .= '<span style="display:inline-block; width:15%; font-weight:bold;'.$namensfarbe.'">'.StringUtil::specialchars($zeile['name']).'</span>';
+			$content .= '<span style="display:inline-block; width:15%; margin-right:10px; background-color:'.StringUtil::specialchars($zeile['color']).'">&nbsp;</span>';
+			$content .= '<input type="text" name="'.$this->strName.'['.$index.'][rows]" id="ctrl_'.$id.'_rows" class="tl_text" style="width:32%; margin-right:5px;" value="'.StringUtil::specialchars($zeile['rows']).'" onfocus="Backend.getScrollOffset()">';
+			$content .= '<input type="text" name="'.$this->strName.'['.$index.'][flags]" id="ctrl_'.$id.'_flags" class="tl_text" style="width:32%" value="'.StringUtil::specialchars($zeile['flags']).'" onfocus="Backend.getScrollOffset()">';
+			$content .= '</div>';
+
+			$index++;
+		}
+
+		return $content;
+	}
+
+	/**
+	 * Führt die Vorgaben aus den Einstellungen mit den Daten des Datensatzes zusammen.
+	 *
+	 * @return array<string, array{name: string, color: string, rows: string, flags: string, defined: bool}>
+	 *         Je interner Kennung die Anzeigedaten einer Widget-Zeile. "defined"
+	 *         ist false, wenn die Markierung nur noch im Datensatz steht, in den
+	 *         Systemeinstellungen aber nicht mehr definiert ist.
+	 */
+	private function collectRows(): array
+	{
+		$zeilen = [];
+
+		foreach (StringUtil::deserialize(Config::get('chesstable_markColors'), true) as $eintrag)
+		{
+			if (!\is_array($eintrag) || empty($eintrag['intern']))
+			{
+				continue;
+			}
+
+			$zeilen[$eintrag['intern']] = [
+				'name' => (string) ($eintrag['name'] ?? $eintrag['intern']),
+				'color' => !empty($eintrag['color']) ? '#'.$eintrag['color'] : '',
+				'rows' => '',
+				'flags' => '',
+				'defined' => true,
+			];
+		}
+
+		// Der gespeicherte Wert ist beim erneuten Anzeigen nach einem Fehler
+		// bereits ein Array, aus der Datenbank kommt er dagegen serialisiert
+		foreach (StringUtil::deserialize($this->varValue, true) as $eintrag)
+		{
+			if (!\is_array($eintrag) || empty($eintrag['intern']))
+			{
+				continue;
+			}
+
+			$schluessel = $eintrag['intern'];
+
+			if (!isset($zeilen[$schluessel]))
+			{
+				$zeilen[$schluessel] = [
+					'name' => (string) $schluessel,
+					'color' => '',
+					'rows' => '',
+					'flags' => '',
+					'defined' => false,
+				];
+			}
+
+			$zeilen[$schluessel]['rows'] = (string) ($eintrag['rows'] ?? '');
+			$zeilen[$schluessel]['flags'] = (string) ($eintrag['flags'] ?? '');
+		}
+
+		return $zeilen;
 	}
 }

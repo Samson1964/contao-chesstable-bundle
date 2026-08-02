@@ -1,28 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * Contao Open Source CMS
+ * Englische Beschriftungen des Inhaltselements "Schachtabelle".
  *
- * Copyright (C) 2005-2013 Leo Feyer
- *
- * @package   fen
  * @author    Frank Hoppe
- * @license   GNU/LGPL
- * @copyright Frank Hoppe 2013
+ * @license   LGPL-3.0-or-later
  */
 
-$GLOBALS['TL_LANG']['tl_content']['chesstable_csv'] = array('CSV data', 'Here you enter the comma-separated data. The columns must be separated with a semicolon.');
-$GLOBALS['TL_LANG']['tl_content']['chesstable_file'] = array('Or integrate alternative file', 'Choose from a CSV file');
-$GLOBALS['TL_LANG']['tl_content']['chesstable_aufsteiger'] = array('Climbers', 'Enter the line numbers of climbers with a comma. Them referring to the line numbers of the textarea!');
-$GLOBALS['TL_LANG']['tl_content']['chesstable_absteiger'] = array('Relegated players', 'Enter the line numbers of losers with a comma. Them referring to the line numbers of the textarea!');
-$GLOBALS['TL_LANG']['tl_content']['chesstable_markieren'] = array('Other lines', 'Enter the line numbers of the lines to be marked separately with a comma. Them referring to the line numbers of the textarea!');
-$GLOBALS['TL_LANG']['tl_content']['chesstable_namendrehen'] = array('Rotate player name', 'The contents of the column player is disconnected and rotated based on the comma.');
-$GLOBALS['TL_LANG']['tl_content']['chesstable_flaggen'] = array('Show nation flags', 'View nation flags when countries column exists.');
-$GLOBALS['TL_LANG']['tl_content']['chesstable_date'] = array('See update', 'Show last update to this table or this content item.');
-$GLOBALS['TL_LANG']['tl_content']['chesstable_lightbox'] = array('Lightbox-view', 'View a table in the Lightbox');
-$GLOBALS['TL_LANG']['tl_content']['chesstable_linktext'] = array('Text for the Lightbox-link', 'Text for the Lightbox-link');
+$GLOBALS['TL_LANG']['tl_content']['chesstable_csv'] = array('CSV data', 'Enter the table data here. The columns must be separated with a semicolon.');
+$GLOBALS['TL_LANG']['tl_content']['chesstable_autoNumber'] = array('Automatic numbering', 'A column "Nr." with automatic numbering is added as the first column.');
+$GLOBALS['TL_LANG']['tl_content']['chesstable_markBold'] = array('Mark rows bold', 'Enter the numbers of the rows to be printed in bold, separated by comma and hyphen. Example: 1,3-5,11.');
+$GLOBALS['TL_LANG']['tl_content']['chesstable_markItalic'] = array('Mark rows italic', 'Enter the numbers of the rows to be printed in italics, separated by comma and hyphen. Example: 1,3-5,11.');
+$GLOBALS['TL_LANG']['tl_content']['chesstable_markierungen'] = array('Mark rows with colour', 'Enter the numbers of the rows to be marked in the first input field, separated by comma and hyphen. Example: 1,3-5,11. In the second input field you can enter the country codes whose rows are to be marked. Country colours override row colours!');
+$GLOBALS['TL_LANG']['tl_content']['chesstable_namendrehen'] = array('Rotate player name', 'The content of the player column is split at the comma and reversed.');
+$GLOBALS['TL_LANG']['tl_content']['chesstable_flaggen'] = array('Show nation flags', 'Show nation flags if a country column exists.');
+$GLOBALS['TL_LANG']['tl_content']['chesstable_date'] = array('Show update date', 'Show the date of the last update of this table or content element.');
+$GLOBALS['TL_LANG']['tl_content']['chesstable_ende'] = array('End of tournament', 'Shows the end date of the tournament if set.');
+$GLOBALS['TL_LANG']['tl_content']['chesstable_note'] = array('Note', 'Note which is shown below the table.');
+$GLOBALS['TL_LANG']['tl_content']['chesstable_lightbox'] = array('Lightbox view', 'Show the table in a lightbox');
+$GLOBALS['TL_LANG']['tl_content']['chesstable_linktext'] = array('Text for the lightbox link', 'Text for the lightbox link');
+$GLOBALS['TL_LANG']['tl_content']['chesstable_hinweis'] = array('Requirement', '');
+
+$GLOBALS['TL_LANG']['tl_content']['chesstable_colorbox'] = 'The lightbox requires the template %s to be included in the page layout.';
 
 $GLOBALS['TL_LANG']['tl_content']['chesstable_legend_csv'] = 'CSV data';
-$GLOBALS['TL_LANG']['tl_content']['chesstable_legend_aufab'] = 'Markings of lines';
-$GLOBALS['TL_LANG']['tl_content']['chesstable_legend_lightbox'] = 'Table in a Lightbox';
+$GLOBALS['TL_LANG']['tl_content']['chesstable_legend_aufab'] = 'Marking of rows';
+$GLOBALS['TL_LANG']['tl_content']['chesstable_legend_lightbox'] = 'Table in a lightbox';
 $GLOBALS['TL_LANG']['tl_content']['chesstable_legend_optionen'] = 'More options';

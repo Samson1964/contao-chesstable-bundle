@@ -1,5 +1,33 @@
 # Schachtabelle Changelog
 
+## Version 4.2.0 (2026-08-02) - mit Claude Code
+
+* Add: Kompatibilität mit Contao 4.13 wiederhergestellt, das Bundle läuft jetzt unter Contao 4.13 und 5 mit PHP 8.1 bis 8.3
+* Add: Englische Fassung des Hilfe-Popups zu den CSV-Daten -- bei englischer Backend-Sprache blieb das Popup bisher leer
+* Add: Unit-Tests für die Auflösung von Zeilenbereichen, das Drehen von Namen, die eigenen CSS-Klassen und die Flaggenzuordnung (`vendor/bin/phpunit`)
+* Fix: Contao-Inserttags in den Tabellenzellen wurden nie ersetzt, weil die Ersetzung erst nach dem Zusammenbau der Zelle erfolgte
+* Fix: Eine Zeile mit `[TEXT]` wurde nicht als Textzeile erkannt, weil die eckigen Klammern als Angabe einer eigenen CSS-Klasse verstanden wurden
+* Fix: Bei aktiver automatischer Nummerierung waren alle Spaltenarten um eine Spalte verschoben, Namen und Flaggen landeten dadurch in der falschen Spalte
+* Fix: Bei aktiver automatischer Nummerierung zerstörte die zusätzliche Spalte die Trenn-, Text- und Leerzeilen
+* Fix: Der Hinweis auf das benötigte Template `j_colorbox` blieb leer, weil es den verwendeten Sprachschlüssel nicht gab
+* Fix: Eine Markierung ohne Farbe löschte die Farbe einer anderen Markierung derselben Zeile
+* Fix: Farbmarkierungen, die im Inhaltselement gespeichert, in den Systemeinstellungen aber nicht mehr definiert sind, führten zu PHP-Warnungen
+* Fix: `unserialize()` auf Werte, die keine Zeichenkette sind, durchgängig durch `StringUtil::deserialize()` ersetzt
+* Fix: `explode()` auf leere Felder (`chesstable_markBold`, `chesstable_markItalic`) erzeugte unter PHP 8.1 Verfallswarnungen
+* Fix: Das Widget für die Farbmarkierungen vergab zweimal dieselbe HTML-ID
+* Fix: Werte im Widget und im `title`-Attribut der Nationsspalte werden maskiert, eigene CSS-Klassen aus den CSV-Daten auf Buchstaben, Ziffern, Binde- und Unterstrich begrenzt
+* Fix: `symlink()`-Warnung, wenn der Server keine Symlinks erlaubt; die Tabelle zeigt dann die Länderkürzel als Text
+* Change: **Überschrift, CSS-ID und Randabstände werden jetzt ausgegeben.** Die Vorlage wird vor dem Rendern gewählt, statt das fertige Template-Objekt zu ersetzen -- dabei gingen bisher alle Standardwerte des Inhaltselements verloren. Wer eine Überschrift gepflegt hat, sieht sie nach dem Update im Frontend.
+* Change: **Das ungenutzte Feld `chesstable_file` wurde entfernt.** Contao schlägt beim Datenbank-Update das Löschen der Spalte `tl_content.chesstable_file` vor; das Feld war in keiner Palette und wurde nie ausgewertet.
+* Change: Das Stylesheet der Flaggenbibliothek wird nur noch eingebunden, wenn die Flaggenanzeige aktiv und die Bibliothek erreichbar ist
+* Change: Die Symbole des MultiColumnWizard in den Systemeinstellungen werden ohne Pfad angegeben, weil Contao 5 kein `up.svg` mehr mitliefert
+* Change: Länderliste und Umformungen in die ohne Contao testbaren Klassen `Util\CountryCodes` und `Util\TableHelper` ausgelagert; die 270 Ländereinträge stehen nicht mehr im Inhaltselement, und die eine große `compile()`-Methode ist in benannte Einzelschritte zerlegt
+* Change: Alle PHP-Dateien mit `declare(strict_types=1)` und durchgehenden deutschen Kommentarblöcken
+* Change: `composer.json` -- PHP `^8.1`, `contao/core-bundle: ^4.13 || ^5.0`, benötigte Symfony-Komponenten ausdrücklich benannt, veraltete Entwicklungsabhängigkeiten (`doctrine/doctrine-cache-bundle`, `php-http/*`) entfernt
+* Change: `services.yml` in `services.yaml` umbenannt, der wirkungslose `_instanceof`-Block wurde durch `_defaults` mit Autowiring ersetzt
+* Change: `runonce_org.php` entfernt -- die Datenübernahme aus Version 3.0.0 war seit Jahren durch ihren Dateinamen abgeschaltet
+* Change: Veraltete Hilfetexte zu den Feldern `chesstable_aufsteiger`, `chesstable_absteiger` und `chesstable_markieren` entfernt, die englische Sprachdatei auf den Stand der deutschen gebracht
+
 ## Version 4.1.3 (2026-07-30)
 
 * Change: Beschreibung, Keywords und Homepage in der composer.json ergänzt, damit Packagist das Paket verständlich darstellt und über die Suche auffindbar macht

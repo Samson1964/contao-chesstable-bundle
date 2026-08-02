@@ -1,23 +1,25 @@
 <?php
 
-/**
- * Contao Open Source CMS
- *
- * Copyright (C) 2005-2013 Leo Feyer
- *
- * @package   fen
- * @author    Frank Hoppe
- * @license   GNU/LGPL
- * @copyright Frank Hoppe 2013
- */
+declare(strict_types=1);
 
 /**
- * palettes
+ * Systemeinstellungen der Schachtabelle.
+ *
+ * Hier legt der Administrator fest, welche Spaltenüberschriften zu welcher
+ * Spaltenart gehören und welche Farbmarkierungen den Redakteuren im
+ * Inhaltselement zur Verfügung stehen.
+ *
+ * @author    Frank Hoppe
+ * @license   LGPL-3.0-or-later
+ */
+
+/*
+ * Palette
  */
 $GLOBALS['TL_DCA']['tl_settings']['palettes']['default'] .= ';{chesstable_legend:hide},chesstable_blindfelder,chesstable_nationfelder,chesstable_platzfelder,chesstable_vereinfelder,chesstable_namenfelder,chesstable_punktefelder,chesstable_wertungfelder,chesstable_ratingfelder,chesstable_ergebnisfelder,chesstable_farbfelder,chesstable_steuerfelder,chesstable_markColors,chesstable_css';
 
-/**
- * fields
+/*
+ * Felder
  */
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['chesstable_blindfelder'] = array
@@ -106,13 +108,15 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['chesstable_markColors'] = array
 	(
 		'tl_class'                        => 'long clr',
 		'buttonPos'                       => 'middle',
+		// Nur die Dateinamen angeben: Contao 5 liefert kein up.svg mehr mit, der
+		// MultiColumnWizard greift dann auf seine eigenen Symbole zurück
 		'buttons'                         => array
 		(
 			'copy'                        => false,
-			'delete'                      => 'system/themes/flexible/icons/delete.svg',
+			'delete'                      => 'delete.svg',
 			'move'                        => false,
-			'up'                          => 'system/themes/flexible/icons/up.svg',
-			'down'                        => 'system/themes/flexible/icons/down.svg'
+			'up'                          => 'up.svg',
+			'down'                        => 'down.svg'
 		),
 		'columnFields'                    => array
 		(

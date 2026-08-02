@@ -1,8 +1,9 @@
 <?php
-	$GLOBALS['TL_JQUERY'][] = '<script type="text/javascript" src="bundles/contaochesstable/lightbox.js"></script>';
+	// Die Lightbox setzt Colorbox voraus, das über das Template j_colorbox eingebunden wird
+	$GLOBALS['TL_JQUERY'][] = '<script src="bundles/contaochesstable/lightbox.js"></script>';
 ?>
 
-<div class="<?= $this->class ?> block"<?= $this->cssID ?> style="<?php if ($this->margin): ?><?= trim($this->margin) ?><?php endif; ?> <?php if ($this->style): ?><?= $this->style ?><?php endif; ?>">
+<div class="<?= $this->class ?> block"<?= $this->cssID ?><?php if ($this->style): ?> style="<?= $this->style ?>"<?php endif; ?>>
 
 	<div class="chesstable_container">
 		<a href="#chesstable_<?= $this->id ?>" class="chesstable-popup"><?= $this->linktext ?></a>
@@ -15,21 +16,21 @@
 
 				<?= $this->tabelle ?>
 
-				<?php if($this->turnierende || $this->datum): ?>
+				<?php if ($this->turnierende || $this->datum): ?>
 					<p class="update">
-					<?php if($this->turnierende): ?>
-						<b>Turnierende: <?= date("d.m.Y", $this->turnierende) ?></b>
+					<?php if ($this->turnierende): ?>
+						<b>Turnierende: <?= date('d.m.Y', $this->turnierende) ?></b>
 					<?php endif; ?>
-					<?php if($this->turnierende && $this->datum): ?>
+					<?php if ($this->turnierende && $this->datum): ?>
 						|
 					<?php endif; ?>
 					<?php if ($this->datum): ?>
-						<i>Aktualisiert am <?= date("d.m.Y H:i", $this->datum) ?> Uhr</i>
+						<i>Aktualisiert am <?= date('d.m.Y H:i', $this->datum) ?> Uhr</i>
 					<?php endif; ?>
 					</p>
 				<?php endif; ?>
 
-				<?php if($this->hinweis): ?>
+				<?php if ($this->hinweis): ?>
 					<p class="hinweis"><?= $this->hinweis ?></p>
 				<?php endif; ?>
 
