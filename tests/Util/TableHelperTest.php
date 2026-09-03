@@ -118,4 +118,61 @@ class TableHelperTest extends TestCase
 	{
 		$this->assertSame(['Meier', 'own_aonclickalert1'], TableHelper::extractClass('[a" onclick="alert(1)]Meier'));
 	}
+
+	/**
+	 * Eine ganze Zahl bekommt die Nachkommastelle ",0".
+	 */
+	public function testFormatPointsGanzeZahl(): void
+	{
+		$this->assertSame('4,0', TableHelper::formatPoints('4'));
+		$this->assertSame('0,0', TableHelper::formatPoints('0'));
+		$this->assertSame('10,0', TableHelper::formatPoints('10'));
+	}
+
+	/**
+	 * Eine Zahl mit angehängtem Halbe-Punkte-Zeichen wird zur Dezimalzahl.
+	 */
+	public function testFormatPointsMitHalbemPunkt(): void
+	{
+		$this->assertSame('4,5', TableHelper::formatPoints('4½'));
+		$this->assertSame('0,5', TableHelper::formatPoints('½'));
+	}
+
+	/**
+	 * Bereits formatierte oder unbekannte Werte bleiben unangetastet.
+	 */
+	public function testFormatPointsLaesstAndereWerteUnveraendert(): void
+	{
+		$this->assertSame('4,5', TableHelper::formatPoints('4,5'));
+		$this->assertSame('4.5', TableHelper::formatPoints('4.5'));
+		$this->assertSame('', TableHelper::formatPoints(''));
+		$this->assertSame('Pkt.', TableHelper::formatPoints('Pkt.'));
+	}
+
+	/**
+	 * Leerzeichen um den Wert dürfen die Erkennung nicht stören.
+	 */
+	public function testFormatPointsIgnoriertLeerzeichen(): void
+	{
+		$this->assertSame('4,0', TableHelper::formatPoints(' 4 '));
+	}
+
+	/**
+	 * Der Zusatz "e.V." wird in allen gebräuchlichen Schreibweisen entfernt.
+	 */
+	public function testShortenClubNameEntferntEingetragenerVereinZusatz(): void
+	{
+		$this->assertSame('SV Budapest', TableHelper::shortenClubName('SV Budapest e.V.'));
+		$this->assertSame('SC Havanna', TableHelper::shortenClubName('SC Havanna e. V.'));
+		$this->assertSame('TSV Musterstadt', TableHelper::shortenClubName('TSV Musterstadt (e.V.)'));
+		$this->assertSame('Club', TableHelper::shortenClubName('Club eingetragener Verein'));
+	}
+
+	/**
+	 * Ein Vereinsname ohne bekannten Zusatz bleibt unverändert.
+	 */
+	public function testShortenClubNameOhneZusatz(): void
+	{
+		$this->assertSame('SC Riga', TableHelper::shortenClubName('SC Riga'));
+	}
 }

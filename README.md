@@ -44,6 +44,14 @@ Im obigen Beispiel ist die Spalte "Spieler" eine Namensspalte. Du kannst die Nam
 
 Tauchen innerhalb von Ergebnisspalten die Zeichen b, s oder w auf, wird der Zelle eine CSS-Klasse "white" oder "black" hinzugefügt.
 
+### Punktespalten
+
+Über die Checkbox "Punkte mit Nachkommastelle" werden Punktestände einheitlich mit einer Nachkommastelle ausgegeben: Aus "4" wird "4,0", aus "4½" wird "4,5". Bereits mit Komma formatierte Werte bleiben unverändert.
+
+### Vereinsspalten
+
+Über die Checkbox "Vereinsnamen kürzen" werden gebräuchliche Rechtsform-Zusätze wie "e.V." (auch als "e. V." oder in Klammern) aus der Vereinsspalte entfernt.
+
 ## Besondere Angaben
 
 ### Inserttags

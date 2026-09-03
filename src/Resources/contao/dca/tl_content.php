@@ -20,7 +20,7 @@ declare(strict_types=1);
 $strGuests = isset($GLOBALS['TL_DCA']['tl_content']['fields']['guests']) ? 'guests,' : '';
 
 $GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'chesstable_lightbox';
-$GLOBALS['TL_DCA']['tl_content']['palettes']['chesstable'] = '{type_legend},type,headline;{chesstable_legend_csv},chesstable_csv,chesstable_autoNumber;{chesstable_legend_aufab},chesstable_markierungen,chesstable_markBold,chesstable_markItalic;{chesstable_legend_lightbox},chesstable_lightbox;{chesstable_legend_optionen},chesstable_namendrehen,chesstable_flaggen,chesstable_date,chesstable_ende,chesstable_note;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},'.$strGuests.'cssID;{invisible_legend:hide},invisible,start,stop';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['chesstable'] = '{type_legend},type,headline;{chesstable_legend_csv},chesstable_csv,chesstable_autoNumber;{chesstable_legend_aufab},chesstable_markierungen,chesstable_markBold,chesstable_markItalic;{chesstable_legend_lightbox},chesstable_lightbox;{chesstable_legend_optionen},chesstable_namendrehen,chesstable_punkteFormat,chesstable_vereinKuerzen,chesstable_flaggen,chesstable_date,chesstable_ende,chesstable_note;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},'.$strGuests.'cssID;{invisible_legend:hide},invisible,start,stop';
 $GLOBALS['TL_DCA']['tl_content']['subpalettes']['chesstable_lightbox'] = 'chesstable_linktext,chesstable_hinweis';
 
 /*
@@ -99,6 +99,22 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_namendrehen'] = array
 		'tl_class'            => 'w50',
 		'isBoolean'           => true,
 	),
+	'sql'                     => "char(1) NOT NULL default ''",
+);
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_punkteFormat'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['chesstable_punkteFormat'],
+	'inputType'               => 'checkbox',
+	'eval'                    => array('tl_class' => 'w50', 'isBoolean' => true),
+	'sql'                     => "char(1) NOT NULL default ''",
+);
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['chesstable_vereinKuerzen'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['chesstable_vereinKuerzen'],
+	'inputType'               => 'checkbox',
+	'eval'                    => array('tl_class' => 'w50', 'isBoolean' => true),
 	'sql'                     => "char(1) NOT NULL default ''",
 );
 

@@ -136,4 +136,69 @@ final class TableHelper
 
 		return [$inhalt, 'own_'.$klasse];
 	}
+
+	/**
+	 * Formatiert einen Punktestand mit einer Nachkommastelle.
+	 *
+	 * Turniersoftware gibt halbe Punkte oft mit dem Zeichen "½" statt einer
+	 * Dezimalzahl aus. Diese Methode bringt beide Schreibweisen auf eine
+	 * einheitliche Form mit Komma als Dezimaltrennzeichen, wie sie im
+	 * deutschsprachigen Raum üblich ist.
+	 *
+	 * @param string $wert Punktestand aus den CSV-Daten, z. B. "4", "4½" oder "½"
+	 *
+	 * @return string Der Punktestand mit einer Nachkommastelle, z. B. "4,0" oder
+	 *                "4,5". Werte, die weder eine reine Zahl noch eine Zahl mit
+	 *                angehängtem "½" sind - etwa bereits formatierte Werte wie
+	 *                "4,5" - bleiben unverändert, damit vorhandene Angaben nicht
+	 *                verfälscht werden.
+	 */
+	public static function formatPoints(string $wert): string
+	{
+		$getrimmt = trim($wert);
+
+		if (preg_match('/^(\d+)½$/u', $getrimmt, $treffer))
+		{
+			return $treffer[1].',5';
+		}
+
+		if ($getrimmt === '½')
+		{
+			return '0,5';
+		}
+
+		if (ctype_digit($getrimmt))
+		{
+			return $getrimmt.',0';
+		}
+
+		return $wert;
+	}
+
+	/**
+	 * Bekannte Zusätze, die shortenClubName() aus einem Vereinsnamen entfernt.
+	 *
+	 * Jeder Eintrag ist ein Regex-Fragment ohne Begrenzungszeichen.
+	 */
+	private const CLUB_SUFFIXES = ['e\.\s*v\.', 'eingetragener\s+verein'];
+
+	/**
+	 * Entfernt gebräuchliche Rechtsform-Zusätze vom Ende eines Vereinsnamens.
+	 *
+	 * Turniermeldelisten führen Vereine häufig mit dem Zusatz "e.V." (in allen
+	 * Schreibvarianten und wahlweise in Klammern), was in einer knapp bemessenen
+	 * Tabellenspalte unnötig Platz kostet.
+	 *
+	 * @param string $wert Vereinsname aus den CSV-Daten
+	 *
+	 * @return string Der Vereinsname ohne den Zusatz und ohne die dadurch
+	 *                entstehenden Leerzeichen am Ende. Kommt keiner der bekannten
+	 *                Zusätze vor, bleibt der Name unverändert.
+	 */
+	public static function shortenClubName(string $wert): string
+	{
+		$muster = '/\s*\(?\s*(?:'.implode('|', self::CLUB_SUFFIXES).')\s*\)?\.?\s*$/iu';
+
+		return trim(preg_replace($muster, '', $wert));
+	}
 }

@@ -1,5 +1,12 @@
 # Schachtabelle Changelog
 
+## Version 4.3.0 (2026-09-03) - mit Claude Code
+
+* Add: Checkbox "Punkte mit Nachkommastelle" -- formatiert Punktestände einheitlich mit einer Nachkommastelle, z.B. wird aus "4" die Zahl "4,0" und aus "4½" die Zahl "4,5"; bereits formatierte Werte bleiben unangetastet
+* Add: Checkbox "Vereinsnamen kürzen" -- entfernt gebräuchliche Rechtsform-Zusätze wie "e.V." (in allen Schreibvarianten und wahlweise in Klammern) aus Vereinsspalten
+* Change: Kompatibilität mit PHP 8.4 geprüft und bestätigt (zusätzlich zu den bereits unterstützten Versionen 8.1 bis 8.3), alle Bundle-Dateien auf UTF-8 ohne BOM geprüft
+* Fix: Duplizieren eines Schachtabellen-Elements konnte laut Rückmeldung die Farbmarkierungen ("Zeilen farblich markieren") verlieren -- ließ sich mit dem echten Contao-Kopiermechanismus (DC_Table::copy) unter Contao 4.13 und 5 nicht nachstellen, das Feld hat keine der dafür bekannten Ursachen (doNotCopy, unique, fallback); weitere Beobachtung nötig, siehe Rückfrage an Frank
+
 ## Version 4.2.0 (2026-08-02) - mit Claude Code
 
 * Add: Kompatibilität mit Contao 4.13 wiederhergestellt, das Bundle läuft jetzt unter Contao 4.13 und 5 mit PHP 8.1 bis 8.3

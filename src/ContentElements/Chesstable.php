@@ -37,6 +37,8 @@ use Schachbulle\ContaoChesstableBundle\Util\TableHelper;
  * @property string $chesstable_note          Hinweistext unterhalb der Tabelle
  * @property string $chesstable_lightbox      "1", wenn die Tabelle in einer Lightbox erscheint
  * @property string $chesstable_linktext      Beschriftung des Lightbox-Links
+ * @property string $chesstable_punkteFormat  "1", wenn Punkte mit einer Nachkommastelle erscheinen
+ * @property string $chesstable_vereinKuerzen "1", wenn Rechtsform-Zusätze aus Vereinsnamen entfernt werden
  */
 class Chesstable extends ContentElement
 {
@@ -391,6 +393,8 @@ class Chesstable extends ContentElement
 		$markierungFett = TableHelper::expandRanges((string) ($this->chesstable_markBold ?? ''));
 		$markierungKursiv = TableHelper::expandRanges((string) ($this->chesstable_markItalic ?? ''));
 		$namendrehen = (bool) $this->chesstable_namendrehen;
+		$punkteFormat = (bool) $this->chesstable_punkteFormat;
+		$vereinKuerzen = (bool) $this->chesstable_vereinKuerzen;
 
 		$content = "<table class=\"chesstable\">\n";
 		$spaltenzahl = 1;
@@ -470,6 +474,16 @@ class Chesstable extends ContentElement
 				if ($namendrehen && $klasse === 'name' && $td === 'td')
 				{
 					$wert = TableHelper::rotateName($wert);
+				}
+
+				if ($punkteFormat && $klasse === 'points' && $td === 'td')
+				{
+					$wert = TableHelper::formatPoints($wert);
+				}
+
+				if ($vereinKuerzen && $klasse === 'club' && $td === 'td')
+				{
+					$wert = TableHelper::shortenClubName($wert);
 				}
 
 				if (\in_array(strtolower($wert), $blindfelder, true))
